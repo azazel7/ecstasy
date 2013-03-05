@@ -9,6 +9,7 @@ public class Tas
 	private int etat;
 	private Map<String, Integer> listeMedoc;
 	private Magasin magasin;
+	private static int NOMBRE_POSITION = 10;
 	
 	public Tas(Map<String, Integer> listeMedoc, int positionInitial, Magasin magasin)
 	{
@@ -19,9 +20,13 @@ public class Tas
 	
 	public void majPosition()
 	{
-		this.positionCourante ++;
 		String code;
 		int nombre, recu;
+		this.positionCourante ++;
+		if(this.positionCourante > NOMBRE_POSITION)
+		{
+			return;
+		}
 		for(int i = 0; i < 2; i++)
 		{
 			code = this.magasin.lireCode(2*this.positionCourante - i);
@@ -29,6 +34,10 @@ public class Tas
 			{
 				nombre = this.listeMedoc.get(code);
 				recu = this.magasin.ejecterMedoc(2*this.positionCourante - i, nombre);
+				if(recu < nombre)
+				{
+					//TODO erreur -> Afficher
+				}
 			}
 		}
 	}
