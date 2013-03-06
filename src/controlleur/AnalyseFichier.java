@@ -1,7 +1,17 @@
 package controlleur;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -43,11 +53,44 @@ public class AnalyseFichier
 		return retour;
 	}
 	
+	public static List<Map<String, Integer>> lireFichierDeCommande(String chemin)
+	{
+		List<Map<String, Integer>> retour = new LinkedList<Map<String,Integer>>();
+		File fichier = new File(chemin);
+		String ligne;
+		Map<String, Integer> commande;
+		try
+		{
+			if (fichier.exists())//on verifie que le fichier existe
+			{
+				//On ouvre un flux sur le fichier
+				InputStream in = new FileInputStream(fichier);
+				InputStreamReader ipsr = new InputStreamReader(in);
+				BufferedReader br = new BufferedReader(ipsr);
+				//On lit le fichier ligne par ligne
+				while( (ligne = br.readLine()) != null)
+				{
+					//On parse chaque ligne
+					commande = AnalyseFichier.creerCommande(ligne);
+					//Si c'est une mauvaise ligne alors elle aura une taille de 0
+					if(commande.size() > 0)
+					{
+						retour.add(commande);
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return retour;
+	}
 	/**
 	 * Ce sont des tests
 	 * @param args
 	 */
-	public static void main(String[] args) 
+ 	public static void main(String[] args) 
 	{
 		System.out.println("Debut");
 		 Map<String, Integer> titi;
