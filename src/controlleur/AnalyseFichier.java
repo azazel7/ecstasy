@@ -1,11 +1,8 @@
 package controlleur;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -53,6 +50,11 @@ public class AnalyseFichier
 		return retour;
 	}
 	
+	/**
+	 * Renvoie une liste de commande aprés les avoir chargées depuis un fichier
+	 * @param chemin
+	 * @return
+	 */
 	public static List<Map<String, Integer>> lireFichierDeCommande(String chemin)
 	{
 		List<Map<String, Integer>> retour = new LinkedList<Map<String,Integer>>();
