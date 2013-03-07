@@ -50,6 +50,25 @@ public class AnalyseFichier
 		return retour;
 	}
 	
+	public static String ecrireCommande(Map<String, Integer> commande)
+	{
+		String retour = new String();
+		String key;
+		Set<String> keys = commande.keySet();
+		Iterator<String> iteratorKeys = keys.iterator();
+		
+		while(iteratorKeys.hasNext())
+		{
+			key = iteratorKeys.next();
+			retour += commande.get(key);
+			retour += key;
+			if(iteratorKeys.hasNext())
+			{
+				retour += ',';
+			}
+		}
+		return retour;
+	}
 	/**
 	 * Renvoie une liste de commande aprés les avoir chargées depuis un fichier
 	 * @param chemin
@@ -132,5 +151,6 @@ public class AnalyseFichier
 			 String key = iterator.next();
 			 System.out.println(titi.get(key) + " -> " + key);
 		 }
+		 System.out.println("Conversion : " + ecrireCommande(titi));
 	}
 }
