@@ -5,6 +5,7 @@ public class Magasin
 	private static int NOMBRE_RAIL = 20;
 	private static Magasin magasin = null;
 	private RailMedicament stock[];
+	
 	public Magasin()
 	{
 		this.stock = new RailMedicament[20];
@@ -15,8 +16,6 @@ public class Magasin
 			this.stock[i] = new RailMedicament(new String(lettre), 50);
 			lettre[0] ++;
 		}
-		
-		
 	}
 	/**
 	 * Permet de récupérer l'unique instance de magasin
@@ -76,4 +75,51 @@ public class Magasin
 		rail.setQuantite(rail.getQuantite() - retour);
 		return retour;
 	}
+	
+	/**
+	 * Permet de recharger un stock de medicament
+	 * @param position
+	 * @param nombre
+	 */
+	public void rechargerMedoc(int position, int nombre)
+	{
+		position--;
+		if(position < 0 || position >= NOMBRE_RAIL)
+		{
+			return;
+		}
+		
+		RailMedicament courant = this.stock[position];
+		courant.setQuantite(courant.getQuantite() + nombre);
+	}
+	
+	/**
+	 * Permet de recharger un stock de medicament
+	 * @param position
+	 * @param nombre
+	 */
+	public void rechargerMedoc(String code, int nombre)
+	{
+		String codeCourant;
+		int position = -1;
+		for(int i = 0; i < NOMBRE_RAIL; i++)
+		{
+			codeCourant = this.stock[i].getCode();
+			if(codeCourant.equals(code))
+			{
+				position = i;
+				break;
+			}
+		}
+		rechargerMedoc(position, nombre);
+	}
+	
+	public RailMedicament[] getStock() {
+		return stock;
+	}
+	public void setStock(RailMedicament[] stock) {
+		this.stock = stock;
+	}
+	
+	
 }
