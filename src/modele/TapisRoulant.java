@@ -10,6 +10,7 @@ public class TapisRoulant
 	private Codeur codeur;
 	private FileDeCommande fileDeCommande;
 	private List<Tas> tas;
+	private static final int NOMBRE_POSITION = 10;
 	private boolean enFonctionnement;
 	
 	public TapisRoulant(FileDeCommande fileDeCommande)
@@ -62,9 +63,23 @@ public class TapisRoulant
 			{
 				creerTas();
 			}
+			nettoyerTas();
 		}
 	}
 
+	public void nettoyerTas()
+	{
+		Iterator<Tas> iterator = this.tas.iterator();
+		Tas courant;
+		while(iterator.hasNext())
+		{
+			courant = iterator.next();
+			if(courant.lirePositionCourante() > NOMBRE_POSITION)
+			{
+				iterator.remove();
+			}
+		}
+	}
 	public FileDeCommande getFileDeCommande() {
 		return fileDeCommande;
 	}
