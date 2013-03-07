@@ -3,6 +3,7 @@ package modele;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class TapisRoulant
 {
@@ -15,29 +16,51 @@ public class TapisRoulant
 	{
 		this.fileDeCommande = fileDeCommande;
 		this.tas = new LinkedList<Tas>();
-		this.codeur = new Codeur(50);
+		this.codeur = new Codeur(1000);
 		this.enFonctionnement = false;
 	}
 	
 	public void creerTas()
 	{
-		
+		Map<String, Integer> commande = this.fileDeCommande.lireCommandeSuivante();
+		if(commande != null)
+		{
+			Tas nouveauTas = new Tas(commande, 0);
+			nouveauTas.majPosition();
+			this.tas.add(nouveauTas);
+		}
 	}
 	
 	public void gererCommande()
 	{
 		Iterator<Tas> iterator;
 		Tas tasCourant;
+		int positionLaPlusPetite;
 		this.enFonctionnement = true;
 		
 		while(this.enFonctionnement)
 		{
+			//On attend que le tapis avance
 			this.codeur.attendreTick();
-			iterator = tas.iterator();
+			//On met la la plus petite position trés haut
+			positionLaPlusPetite = 255;
+			iterator = this.tas.iterator();
+			//Pour chaque tas
 			while(iterator.hasNext())
 			{
 				tasCourant = iterator.next();
+				//On met à jour la position
 				tasCourant.majPosition();
+				//On met à jour la position la plus petite
+				if(tasCourant.lirePositionCourante() < positionLaPlusPetite)
+				{
+					positionLaPlusPetite = tasCourant.lirePositionCourante();
+				}
+			}
+			//Si la position la plus petite est suffisament loin, on créer un nouveau tas
+			if(positionLaPlusPetite > 3 && this.fileDeCommande.lireNombre() > 0)
+			{
+				creerTas();
 			}
 		}
 	}
@@ -65,6 +88,12 @@ public class TapisRoulant
 	public void setEnFonctionnement(boolean enFonctionnement) {
 		this.enFonctionnement = enFonctionnement;
 	}
-	
-	
+
+	public Codeur getCodeur() {
+		return codeur;
+	}
+
+	public void setCodeur(Codeur codeur) {
+		this.codeur = codeur;
+	}
 }
