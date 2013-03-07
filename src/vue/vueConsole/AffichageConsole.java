@@ -25,12 +25,14 @@ public class AffichageConsole {
 		peem1000.ajouterCommande("4A,5B");
 		peem1000.ajouterCommande("4C,5D");
 		peem1000.demarrer();
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < 7; i++)
 		{
 			try
 			{
 				Thread.sleep(2000);
+				//peem1000.mettreEnPause(0);
 				afficherInstantConsole(peem1000);
+				//peem1000.quitterPause();
 			}
 			catch (InterruptedException e)
 			{
