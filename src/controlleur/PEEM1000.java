@@ -1,8 +1,14 @@
 package controlleur;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import modele.Codeur;
 import modele.FileDeCommande;
@@ -32,17 +38,24 @@ public class PEEM1000
 	public RailMedicament[] getStock()
 	{
 		Magasin magasin = Magasin.recupererInstance();
-		return magasin.getStock();
+		int taille = magasin.getStock().length;
+		RailMedicament[] original = magasin.getStock();
+		RailMedicament[] retour = Arrays.copyOf(original, taille);
+		return retour;
 	}
 	
 	public List<Map<String, Integer>> getListeCommande()
 	{
-		return this.tapis.getFileDeCommande().getFile();
+		List<Map<String, Integer>> tmp = this.tapis.getFileDeCommande().getFile();
+		List<Map<String, Integer>> retour = new LinkedList<Map<String,Integer>>(tmp);
+		return retour;
 	}
 	
 	public List<Tas> getListeCommandeSurTapis()
 	{
-		return this.tapis.getTas();
+		List<Tas> tmp = this.tapis.getTas();
+		List<Tas> retour = new LinkedList<Tas>(tmp);
+		return retour;
 	}
 	
 	/**
@@ -121,9 +134,20 @@ public class PEEM1000
 	{
 		try
 		{
-			this.thread.sleep(temps);
+			this.thread.wait();
 		}
 		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public void quitterPause()
+	{
+		try
+		{
+			this.thread.notify();
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
