@@ -11,7 +11,7 @@ public class Tas
 	private Magasin magasin;
 	private static int NOMBRE_POSITION = 10;
 	
-	public Tas(Map<String, Integer> listeMedoc, int positionInitial, Magasin magasin)
+	public Tas(Map<String, Integer> listeMedoc, int positionInitial)
 	{
 		this.listeMedoc = listeMedoc;
 		this.positionCourante = positionInitial;
@@ -46,5 +46,10 @@ public class Tas
 	{
 		return this.positionCourante;
 	}
+
+	public Map<String, Integer> getListeMedoc() {
+		return listeMedoc;
+	}
+	
 	
 }
