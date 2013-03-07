@@ -29,4 +29,8 @@ public class FileDeCommande
 	{
 		this.file.add(nouvelleCommande);
 	}
+
+	public List<Map<String, Integer>> getFile() {
+		return file;
+	}
 }
