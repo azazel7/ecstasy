@@ -152,5 +152,16 @@ public class AnalyseFichier
 			 System.out.println(titi.get(key) + " -> " + key);
 		 }
 		 System.out.println("Conversion : " + ecrireCommande(titi));
+		 
+		 commande = "44D";
+		 titi = creerCommande(commande);
+		 keys = titi.keySet();
+		 iterator = keys.iterator();
+		 System.out.println(commande);
+		 while(iterator.hasNext())
+		 {
+			 String key = iterator.next();
+			 System.out.println(titi.get(key) + " -> " + key);
+		 }
 	}
 }
