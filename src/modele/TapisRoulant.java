@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class TapisRoulant
+import observation.TapisRoulantObservable;
+
+public class TapisRoulant extends TapisRoulantObservable
 {
 	private Codeur codeur;
 	private FileDeCommande fileDeCommande;
@@ -41,6 +43,8 @@ public class TapisRoulant
 		
 		while(this.enFonctionnement)
 		{
+			//On informe que l'on vas entrer dans un tick
+			this.notifyWaitTick();
 			//On attend que le tapis avance
 			this.codeur.attendreTick();
 			//On met la la plus petite position trés haut

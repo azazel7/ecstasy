@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import observation.IObserver;
+
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import modele.Codeur;
@@ -130,26 +132,13 @@ public class PEEM1000
 		this.tapis.setEnFonctionnement(false);
 	}
 	
-	public void mettreEnPause(int temps)
+	public void ajouterObserver(IObserver obs)
 	{
-		try
-		{
-			this.thread.wait();
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+		this.tapis.addObserver(obs);
 	}
-	public void quitterPause()
+	
+	public void retirerObservateur(IObserver obs)
 	{
-		try
-		{
-			this.thread.notify();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		this.tapis.removeObserver(obs);
 	}
 }

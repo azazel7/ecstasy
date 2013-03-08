@@ -26,9 +26,7 @@ public final class Notifier
 	static
 	{
 		List<Class<? extends IObserver>> interfaces = new ArrayList<Class<? extends IObserver>>();
-		/*interfaces.add(DataBaseObserver.class);
-		interfaces.add(ActionMessageObserver.class);
-		interfaces.add(CacheObserver.class);*/
+		interfaces.add(TapisRoulantObserver.class);
 		for (Class<?> i : interfaces)
 		{
 			Method[] ms = i.getDeclaredMethods();
