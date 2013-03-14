@@ -22,8 +22,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import controlleur.PEEM1000;
 
 
 
@@ -37,44 +40,48 @@ public class Fenetre extends JFrame{
   * Tout les attribu de la classe et lrd composant graphique
   */
 	private static final long serialVersionUID = 1L;
-	private JTextField saisieCoup = new JTextField();
-	 private JButton envoyer = new JButton("Envoyer");
 	 
 	 private JMenuBar barMenu = new JMenuBar();
 	 private JMenu fichierMenu = new JMenu("Fichier");
 	 private JMenu aide = new JMenu("Aide");
 			
-	private JMenuItem choisirProjet = new JMenuItem("Choisir un projet");
-	private JMenuItem seConnecter = new JMenuItem("Se connecter");
-	private JMenuItem creerProjet = new JMenuItem("Créer projet");
+	private JMenuItem demarrer = new JMenuItem("Demarrer");
+	private JMenuItem stopper = new JMenuItem("Stopper");
 	
 	private JTextArea resultat = new JTextArea();
 	
 	private JPanel principal = new JPanel(null);
-	private JPanel sud = new JPanel();
 	
+	private PEEM1000 peem1000;
 	/**
 	 * Constructeur mettant en place la disposition des composant
 	 */	
      public Fenetre()
      {
-		this.setTitle("Gestion de projet");
+    	 JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel();
+    	 JSlider slideVitesse = new JSlider();
+    	 
+		this.setTitle("AGL");
 		this.setSize(700, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
-		sud.setLayout(new GridLayout(1, 10));
-		sud.add(saisieCoup);
-		sud.add(envoyer);
-
-		principal.setLayout(new BorderLayout());
-		principal.add(sud, BorderLayout.SOUTH);
-		principal.add(resultat);
-		this.fichierMenu.add(creerProjet);
-		this.fichierMenu.add(choisirProjet);
-		this.fichierMenu.add(seConnecter);
+		this.peem1000 = PEEM1000.recupererInstance();
 		
-
+		slideVitesse.setMaximum(10000);
+		slideVitesse.setMinimum(0);
+		panneauVitesse.add(slideVitesse);
+		panneauVitesse.setBorder(BorderFactory.createTitledBorder("Modifier vitesse"));
+		
+		panneauAjoutCommande.setBorder(BorderFactory.createTitledBorder("Ajouter une commande"));
+		
+		//this.principal.setLayout(new BorderLayout());
+		this.fichierMenu.add(demarrer);
+		this.fichierMenu.add(stopper);
+		
+		this.demarrer.addMouseListener(new DemarrerPEEM1000());
+		this.stopper.addMouseListener(new StopperPEEM1000());
+		
 		this.barMenu.add(fichierMenu);
 		this.barMenu.add(aide);
 
@@ -127,6 +134,22 @@ public class Fenetre extends JFrame{
 		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	
+	class DemarrerPEEM1000 extends MouseAdapter
+	{
+		public void mouseReleased(MouseEvent event)
+      	{
+			peem1000.demarrer();
+      	}
+	}
+	
+	class StopperPEEM1000 extends MouseAdapter
+	{
+		public void mouseReleased(MouseEvent event)
+      	{
+			peem1000.stopper();
+      	}
+	}
 	public static void main( String arg[] )
      {
     	new Fenetre();
