@@ -20,9 +20,9 @@ public class AffichageConsole implements TapisRoulantObserver
 	public void principal()
 	{
 		peem1000 = PEEM1000.recupererInstance();
-		peem1000.ajouterCommande("4A,5B");
-		peem1000.ajouterCommande("4C,5D");
-		peem1000.ajouterCommandeFichier("exempleCommande");
+		peem1000.ajouterCommande("4A");
+		//peem1000.ajouterCommande("4C,5D");
+		//peem1000.ajouterCommandeFichier("exempleCommande");
 		peem1000.ajouterObserver(this);
 		peem1000.demarrer();
 	}
