@@ -53,6 +53,14 @@ public class Magasin
 	 */
 	public int ejecterMedoc(int position, int nombre)
 	{
+		if(nombre > 3)
+		{
+			nombre = 3;
+		}
+		else if(nombre < 0)
+		{
+			nombre = 0;
+		}
 		int retour = 0;;
 		RailMedicament rail;
 		position--;
