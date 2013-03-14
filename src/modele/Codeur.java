@@ -3,7 +3,7 @@ package modele;
 public class Codeur
 {
 	private int valeurTick;
-	
+	public static final int VITESSE_CODEUR_DEFAUT = 1000;
 	public Codeur(int val)
 	{
 		if(valeurTick >= 0)
@@ -12,7 +12,7 @@ public class Codeur
 		}
 		else
 		{
-			this.valeurTick = 10;
+			this.valeurTick = VITESSE_CODEUR_DEFAUT;
 		}
 	}
 	public void attendreTick()

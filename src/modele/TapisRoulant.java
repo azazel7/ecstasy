@@ -9,6 +9,7 @@ import observation.TapisRoulantObservable;
 
 public class TapisRoulant extends TapisRoulantObservable
 {
+	
 	private Codeur codeur;
 	private FileDeCommande fileDeCommande;
 	private List<Tas> tas;
@@ -19,7 +20,7 @@ public class TapisRoulant extends TapisRoulantObservable
 	{
 		this.fileDeCommande = fileDeCommande;
 		this.tas = new LinkedList<Tas>();
-		this.codeur = new Codeur(1000);
+		this.codeur = new Codeur(Codeur.VITESSE_CODEUR_DEFAUT);
 		this.enFonctionnement = false;
 	}
 	
