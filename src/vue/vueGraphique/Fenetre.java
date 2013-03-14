@@ -28,6 +28,10 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import modele.Codeur;
 
 
 import controlleur.PEEM1000;
@@ -74,6 +78,8 @@ public class Fenetre extends JFrame{
 		
 		slideVitesse.setMaximum(10000);
 		slideVitesse.setMinimum(0);
+		slideVitesse.setValue(Codeur.VITESSE_CODEUR_DEFAUT);
+		slideVitesse.addChangeListener(new AjusterVitesse());
 		panneauVitesse.add(slideVitesse);
 		panneauVitesse.setBorder(BorderFactory.createTitledBorder("Modifier vitesse"));
 		
@@ -219,6 +225,19 @@ public class Fenetre extends JFrame{
 		public void keyTyped(KeyEvent arg0) {}
 	}
 	
+	class AjusterVitesse implements ChangeListener
+	{
+		@Override
+		public void stateChanged(ChangeEvent e)
+		{
+			JSlider source = (JSlider)e.getSource();
+			if(source != null)
+			{
+				int nouvelleValeur = source.getValue();
+				peem1000.modifierVitesse(nouvelleValeur);
+			}
+		}
+	}
 	public static void main( String arg[] )
      {
     	new Fenetre();
