@@ -27,6 +27,7 @@ public final class Notifier
 	{
 		List<Class<? extends IObserver>> interfaces = new ArrayList<Class<? extends IObserver>>();
 		interfaces.add(TapisRoulantObserver.class);
+		interfaces.add(FileCommandeObserver.class);
 		for (Class<?> i : interfaces)
 		{
 			Method[] ms = i.getDeclaredMethods();
