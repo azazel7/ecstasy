@@ -34,7 +34,7 @@ import javax.swing.event.ChangeListener;
 import modele.Codeur;
 
 
-import controlleur.PEEM1000;
+import controleur.PEEM1000;
 
 
 

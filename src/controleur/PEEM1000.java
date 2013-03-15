@@ -1,4 +1,4 @@
-package controlleur;
+package controleur;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -28,7 +28,7 @@ public class PEEM1000
 		}
 		return controle;
 	}
-	public PEEM1000()
+	private PEEM1000()
 	{
 		this.tapis = new TapisRoulant(new FileDeCommande());
 	}
@@ -62,7 +62,7 @@ public class PEEM1000
 	 */
 	public void modifierVitesse(int nouveauTemps)
 	{
-		Codeur codeur = tapis.getCodeur();
+		Codeur codeur = this.tapis.getCodeur();
 		codeur.setValeurTick(nouveauTemps);
 	}
 	
