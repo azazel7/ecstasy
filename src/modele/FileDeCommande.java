@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class FileDeCommande
+import observation.FileCommandeObservable;
+
+public class FileDeCommande extends FileCommandeObservable
 {
 	private List<Map<String, Integer>> file = new LinkedList<Map<String,Integer>>();
 	
@@ -20,7 +22,7 @@ public class FileDeCommande
 		{
 			retour = this.file.get(0);
 			this.file.remove(0);
-			
+			this.notifyDeleteCommande();
 		}
 		return retour;
 	}
@@ -28,9 +30,11 @@ public class FileDeCommande
 	public void ajouterCommande(Map<String, Integer> nouvelleCommande)
 	{
 		this.file.add(nouvelleCommande);
+		this.notifyAddCommande();
 	}
 
-	public List<Map<String, Integer>> getFile() {
+	public List<Map<String, Integer>> getFile()
+	{
 		return file;
 	}
 }

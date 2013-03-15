@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import observation.FileCommandeObserver;
 import observation.IObserver;
+import observation.TapisRoulantObserver;
 
 import modele.Codeur;
 import modele.FileDeCommande;
@@ -128,13 +130,22 @@ public class PEEM1000
 		this.tapis.setEnFonctionnement(false);
 	}
 	
-	public void ajouterObserver(IObserver obs)
+	public void ajouterObserver(TapisRoulantObserver obs)
 	{
 		this.tapis.addObserver(obs);
 	}
 	
-	public void retirerObservateur(IObserver obs)
+	public void retirerObservateur(TapisRoulantObserver obs)
 	{
 		this.tapis.removeObserver(obs);
+	}
+	
+	public void ajouterObserver(FileCommandeObserver obs)
+	{
+		this.tapis.getFileDeCommande().addObserver(obs);
+	}
+	public void retirerObserver(FileCommandeObserver obs)
+	{
+		this.tapis.getFileDeCommande().addObserver(obs);
 	}
 }

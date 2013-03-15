@@ -1,20 +1,11 @@
 package vue.vueGraphique;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.lang.Thread.State;
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
-import java.util.Map;
-import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,7 +17,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -59,22 +49,33 @@ public class Fenetre extends JFrame{
 	
 	private JPanel principal = new JPanel(null);
 	private JTextField texteNouvelleCommande = new JTextField();
+	private PanneauCommandeFile panneauCommandeFile;
+	private PanneauTapis panneauTapis;
+	private PanneauCommandeTapis panneauCommandeTapis;
 	private PEEM1000 peem1000;
 	/**
 	 * Constructeur mettant en place la disposition des composant
 	 */	
      public Fenetre()
      {
-    	 JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel();
-    	 JSlider slideVitesse = new JSlider();
-    	 JButton boutonAjouterCommande = new JButton("Ajouter");
-    	 
+    	 this.peem1000 = PEEM1000.recupererInstance();
+    	 this.initialiserComposant();
+    	 this.peem1000.ajouterObserver(this.panneauCommandeFile);
+    	 this.peem1000.ajouterObserver(this.panneauTapis);
+    	 this.peem1000.ajouterObserver(this.panneauCommandeTapis);
+     }
+     
+
+	public void initialiserComposant()
+	{
+		JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel();
+   	 	JSlider slideVitesse = new JSlider();
+   	 	JButton boutonAjouterCommande = new JButton("Ajouter");
+   	 
 		this.setTitle("AGL");
 		this.setSize(700, 650);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-
-		this.peem1000 = PEEM1000.recupererInstance();
 		
 		slideVitesse.setMaximum(10000);
 		slideVitesse.setMinimum(0);
@@ -108,11 +109,7 @@ public class Fenetre extends JFrame{
 		this.setJMenuBar(barMenu);
 		this.setContentPane(principal);
 		this.setVisible(true);
-             
-     }
-     
-
-	
+	}
 	/**
 	 * Affiche une popup qui signale une erreur
 	 *
