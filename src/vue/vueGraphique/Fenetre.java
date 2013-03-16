@@ -115,7 +115,7 @@ public class Fenetre extends JFrame{
 		this.principal.add(panneauAjoutCommande);
 		this.principal.add(this.panneauCommandeTapis);
 		this.principal.add(this.panneauCommandeFile);
-		//this.principal.add(this.panneauTapis);
+		this.principal.add(this.panneauTapis);
 		this.setJMenuBar(barMenu);
 		this.setContentPane(principal);
 		this.setVisible(true);

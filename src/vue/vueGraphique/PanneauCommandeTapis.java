@@ -69,7 +69,7 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 			tasCourant = iterator.next();
 			listeMedoc = tasCourant.getListeMedoc();
 			listeMedocRestant = tasCourant.getListeMedocRestante();
-			node = new Branche(tasCourant.getNumero() + " " + AnalyseFichier.ecrireCommande(listeMedoc));
+			node = new Branche("(" + tasCourant.getNumero() + ") " + AnalyseFichier.ecrireCommande(listeMedoc));
 			
 			keys = listeMedoc.keySet();
 			iteratorKeys = keys.iterator();
