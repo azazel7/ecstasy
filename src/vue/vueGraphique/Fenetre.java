@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -77,7 +78,7 @@ public class Fenetre extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
-		slideVitesse.setMaximum(10000);
+		slideVitesse.setMaximum(4000);
 		slideVitesse.setMinimum(0);
 		slideVitesse.setValue(Codeur.VITESSE_CODEUR_DEFAUT);
 		slideVitesse.addChangeListener(new AjusterVitesse());
@@ -97,7 +98,7 @@ public class Fenetre extends JFrame{
 		this.fichierMenu.add(ajouterFichierCommande);
 		
 		this.demarrer.addMouseListener(new DemarrerPEEM1000());
-		this.demarrer.setMnemonicFromAction("o");
+		this.demarrer.setAccelerator(KeyStroke.getKeyStroke('D', KeyEvent.CTRL_DOWN_MASK));
 		this.stopper.addMouseListener(new StopperPEEM1000());
 		this.ajouterFichierCommande.addMouseListener(new AjouterFichierCommande());
 		
