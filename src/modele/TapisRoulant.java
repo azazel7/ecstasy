@@ -15,7 +15,7 @@ public class TapisRoulant extends TapisRoulantObservable
 	private List<Tas> tas;
 	private static final int NOMBRE_POSITION = 10;
 	private boolean enFonctionnement;
-	
+	private int numeroTasSuivant = 0;
 	public TapisRoulant(FileDeCommande fileDeCommande)
 	{
 		this.fileDeCommande = fileDeCommande;
@@ -29,9 +29,11 @@ public class TapisRoulant extends TapisRoulantObservable
 		Map<String, Integer> commande = this.fileDeCommande.lireCommandeSuivante();
 		if(commande != null)
 		{
-			Tas nouveauTas = new Tas(commande, 0);
+			Tas nouveauTas = new Tas(commande, 0, this.numeroTasSuivant);
 			nouveauTas.majPosition();
 			this.tas.add(nouveauTas);
+			//4 étant le nombre maximun de tas qui peuvent être placé simultanément sur la tapis
+			this.numeroTasSuivant = (this.numeroTasSuivant + 1)%4;
 		}
 	}
 	

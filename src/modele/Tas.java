@@ -7,18 +7,19 @@ public class Tas
 {
 	
 	private int positionCourante;
-	private int etat;
+	private int numero;
 	private Map<String, Integer> listeMedoc;
 	private Map<String, Integer> listeMedocRestante;
 	private Magasin magasin;
 	private static int NOMBRE_POSITION = 10;
 	
-	public Tas(Map<String, Integer> listeMedoc, int positionInitial)
+	public Tas(Map<String, Integer> listeMedoc, int positionInitial, int numero)
 	{
 		this.listeMedoc = listeMedoc;
 		this.listeMedocRestante = new HashMap<String, Integer>(this.listeMedoc);
 		this.positionCourante = positionInitial;
 		this.magasin = Magasin.recupererInstance();
+		this.numero = numero;
 	}
 	
 	public void majPosition()
@@ -67,6 +68,10 @@ public class Tas
 
 	public Map<String, Integer> getListeMedocRestante() {
 		return listeMedocRestante;
+	}
+
+	public int getNumero() {
+		return numero;
 	}
 	
 	
