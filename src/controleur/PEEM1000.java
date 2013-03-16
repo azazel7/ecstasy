@@ -130,6 +130,11 @@ public class PEEM1000
 		this.tapis.setEnFonctionnement(false);
 	}
 	
+	public void retirerCommande(int index)
+	{
+		FileDeCommande file = this.tapis.getFileDeCommande();
+		file.retirerCommande(index);
+	}
 	public void ajouterObserver(TapisRoulantObserver obs)
 	{
 		this.tapis.addObserver(obs);

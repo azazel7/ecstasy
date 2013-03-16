@@ -33,6 +33,14 @@ public class FileDeCommande extends FileCommandeObservable
 		this.notifyAddCommande();
 	}
 
+	public void retirerCommande(int index)
+	{
+		if(index >= 0 && index < this.file.size())
+		{
+			this.file.remove(index);
+			this.notifyDeleteCommande();
+		}
+	}
 	public List<Map<String, Integer>> getFile()
 	{
 		return file;
