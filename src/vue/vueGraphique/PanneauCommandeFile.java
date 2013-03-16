@@ -1,11 +1,13 @@
 package vue.vueGraphique;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,8 +28,10 @@ public class PanneauCommandeFile extends JPanel implements FileCommandeObserver
 	{
 		super();
 		peem1000 = PEEM1000.recupererInstance();
-		//Les données du tableau
-	    
+		this.setLayout(new BorderLayout());
+		this.setBorder(BorderFactory.createTitledBorder("Commandes en attentes"));
+		this.mettreAJour();
+		
 	}
 	@Override
 	public void onAddCommande()
@@ -60,7 +64,7 @@ public class PanneauCommandeFile extends JPanel implements FileCommandeObserver
 	    //On supprime tous les éléments
 	    this.removeAll();
 	    //On ajoute la scrollpane
-	    this.add(scrollpane);
+	    this.add(scrollpane, BorderLayout.CENTER);
 	    //On met à jour
 	    this.updateUI();
 	}
