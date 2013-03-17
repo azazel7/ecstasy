@@ -106,6 +106,8 @@ public class Fenetre extends JFrame{
 		fichierMenu.add(sauvegarderLog);
 		fichierMenu.add(quitter);
 		
+		barMenu.add(fichierMenu);
+		
 		//Ajout de listener
 		demarrer.addMouseListener(new DemarrerPEEM1000());
 		demarrer.setAccelerator(KeyStroke.getKeyStroke('D', KeyEvent.CTRL_DOWN_MASK));

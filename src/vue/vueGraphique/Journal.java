@@ -32,6 +32,7 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 		Tas courant;
 		Iterator<Tas> iteratorTapis = peem1000.getListeCommandeSurTapis().iterator();
 		Iterator<Map<String, Integer>> iteratorFile = peem1000.getListeCommande().iterator();
+		this.ecrire("Attente d'un tick");
 		this.ecrire("Commande dans la file:");
 		while(iteratorFile.hasNext())
 		{
