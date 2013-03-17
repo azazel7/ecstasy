@@ -16,6 +16,7 @@ public class TapisRoulant extends TapisRoulantObservable
 	private static final int NOMBRE_POSITION = 10;
 	private boolean enFonctionnement;
 	private int numeroTasSuivant = 0;
+	
 	public TapisRoulant(FileDeCommande fileDeCommande)
 	{
 		this.fileDeCommande = fileDeCommande;
@@ -84,6 +85,7 @@ public class TapisRoulant extends TapisRoulantObservable
 			courant = iterator.next();
 			if(courant.lirePositionCourante() > NOMBRE_POSITION)
 			{
+				this.notifyDeleteTas(courant);
 				iterator.remove();
 			}
 		}

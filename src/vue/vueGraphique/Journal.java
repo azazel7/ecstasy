@@ -66,7 +66,7 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 	public void onCreateTas(Tas tas)
 	{
 		String listeMedocString = AnalyseFichier.ecrireCommande(tas.getListeMedoc());
-		this.ecrire("Nouveau tas: " + listeMedocString);
+		this.ecrire("Nouveau tas N°" + tas.getNumero() + " (" + listeMedocString + ")");
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 	@Override
 	public void onEject(int nombre, String code)
 	{
-		System.out.println("Ejection: " + code + " " + nombre);
+		this.ecrire("Ejection: " + code + " " + nombre);
 	}
 	
 	public void enregistrerLogs(String chemin)
