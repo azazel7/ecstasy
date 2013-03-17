@@ -32,68 +32,13 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		this.peem1000 = PEEM1000.recupererInstance();
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder("Tapis"));
-		//this.mettreAJour();
 	}
 	@Override
 	public void onWaitTick()
 	{
-		//this.mettreAJour();
 		this.repaint();
 	}
-
-	public void mettreAJour()
-	{
-		this.removeAll();
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = c.gridy = 0;
-		Magasin magasin = Magasin.recupererInstance();
-		
-		//getmagasin
-		for(int i = 1; i <= 10; i++)
-		{
-			PanneauEjecteur panneauEjecteurDroit, panneauEjecteurGauche;
-			String codeDroit, codeGauche;
-			int quantiteDroite, quantiteGauche;
-			codeDroit = magasin.lireCode(i*2);
-			quantiteDroite = magasin.lireQUantite(i*2);
-			codeGauche = magasin.lireCode((i*2) - 1);
-			quantiteGauche = magasin.lireQUantite((i*2) - 1);
-			panneauEjecteurDroit = new PanneauEjecteur(codeDroit, quantiteDroite);
-			panneauEjecteurGauche = new PanneauEjecteur(codeGauche, quantiteGauche);
-
-			c.gridx = i;
-			c.gridy = 0;
-			this.add(panneauEjecteurGauche, c);			
-			c.gridy = 2;
-			this.add(panneauEjecteurDroit, c);
-		}
-		
-		List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
-		c.gridy = 1;
-		if(listeTas.size() == 0)
-		{
-			
-			this.add(new JPanel(), c);
-		}
-		else
-		{
-			JPanel panel;
-			JLabel lab;
-			Tas courant;
-			Iterator<Tas> iterator = listeTas.iterator();
-			while(iterator.hasNext())
-			{
-				courant = iterator.next();
-				panel = new JPanel();
-				c.gridx = courant.lirePositionCourante();
-				lab = new JLabel("(" + courant.getNumero() + ")");
-				panel.add(lab);
-				this.add(panel, c);
-			}
-		}
-		this.updateUI();
-	}
-	
+	//Peut être optimisé en ne peignant que la zone des tas car il n'y a qu'elle qui change
 	public void paintComponent(Graphics g)
 	{
 		g.setColor(new Color(238, 238, 238));
@@ -101,8 +46,11 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		g.setColor(Color.black);
 		//Ceux qui n'aiment pas les maths, sauter ce passage
 		int marge = 20;
+		//On se raméne à un cadre sans marge
 		int reelWidth = this.getWidth() - marge, reelHeight = this.getHeight() - marge;
+		//Il y a trois lignes
 		int heightCube = reelHeight/3;
+		//Il y a 10 cube de large et 9 intercube. cinq intercubes égal un cube ce qui donne l'équation -> 10x + 9y = reelWidth avec 5y = x  donc 59y = reelWidth
 		int interCube = reelWidth/59;
 		int widthCube = interCube*5;
 		int x, y;
@@ -110,14 +58,18 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		//getmagasin
 			for(int i = 1; i <= 10; i++)
 			{
+				//On récupére les code de medoc
 				String codeDroit, codeGauche;
 				codeDroit = magasin.lireCode(i*2);
 				codeGauche = magasin.lireCode((i*2) - 1);
+				//On calcule le x avec la marge
 				x = ((i - 1)*interCube*6) + marge;
 				y = marge;
+				//On peint
 				g.drawRect(x, marge, widthCube, heightCube);
+				//Ajoute le code a des coordonnée arbitrairement proportionelles
 				g.drawString(codeDroit, x + widthCube/2, y + heightCube/2);
-				//g.drawString(codeDroit, 70*i + 25, 20);
+				//On recalcule et on repeint l'autre ejecteur
 				y = 2*heightCube + marge;
 				g.drawRect(x, y, widthCube, heightCube);
 				g.drawString(codeGauche, x + widthCube/2, y + heightCube/2);
@@ -128,9 +80,11 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 			Tas courant;
 			Iterator<Tas> iterator = listeTas.iterator();
 			y = heightCube + heightCube/2;
+			//On peint les tas
 			while(iterator.hasNext())
 			{
 				courant = iterator.next();
+				//On calcule le x
 				x = ((courant.lirePositionCourante() - 1)*interCube*6) + marge;
 				g.setColor(Color.pink);
 				g.fillOval(x, y, widthCube, widthCube);
