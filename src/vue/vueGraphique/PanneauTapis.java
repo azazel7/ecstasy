@@ -96,7 +96,7 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 	
 	public void paintComponent(Graphics g)
 	{
-		g.setColor(Color.white);
+		g.setColor(new Color(238, 238, 238));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		g.setColor(Color.black);
 		//Ceux qui n'aiment pas les maths, sauter ce passage
@@ -125,8 +125,6 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 			
 			List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
 			
-			JPanel panel;
-			JLabel lab;
 			Tas courant;
 			Iterator<Tas> iterator = listeTas.iterator();
 			y = heightCube + heightCube/2;
