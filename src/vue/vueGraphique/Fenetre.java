@@ -58,6 +58,8 @@ public class Fenetre extends JFrame{
 	private PanneauCommandeTapis panneauCommandeTapis;
 	private PEEM1000 peem1000;
 	private Journal journal;
+	private String cheminPrecedant;
+	
 	/**
 	 * Constructeur mettant en place la disposition des composant
 	 */	
@@ -191,7 +193,7 @@ public class Fenetre extends JFrame{
 	
 	class AjouterFichierCommande extends MouseAdapter
 	{
-		private String cheminPrecedant;
+		
 		public void mouseReleased(MouseEvent event)
       	{
 			JFileChooser fileChooser = new JFileChooser(cheminPrecedant);
@@ -273,7 +275,22 @@ public class Fenetre extends JFrame{
 	{
 		public void mouseReleased(MouseEvent event)
       	{
-			journal.enregistrerLogs("toto");
+			
+			JFileChooser fileChooser = new JFileChooser(cheminPrecedant);
+			fileChooser.showOpenDialog(null);
+			if (fileChooser.getSelectedFile() != null)
+			{
+				try
+				{
+					cheminPrecedant = fileChooser.getSelectedFile().getCanonicalPath();
+					journal.enregistrerLogs(cheminPrecedant);
+					
+				}
+				catch (IOException e1)
+				{
+					popupErreur(e1.getMessage());
+				}
+			}
       	}
 	}
 	public static void main( String arg[] )
