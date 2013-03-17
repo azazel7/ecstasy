@@ -5,7 +5,8 @@ import observation.TapisRoulantObserver;
 
 public class Journal implements TapisRoulantObserver, FileCommandeObserver
 {
-
+	private String journal = new String();
+	
 	@Override
 	public void onAddCommande()
 	{
