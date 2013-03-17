@@ -116,10 +116,11 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 				x = ((i - 1)*interCube*6) + marge;
 				y = marge;
 				g.drawRect(x, marge, widthCube, heightCube);
+				g.drawString(codeDroit, x + widthCube/2, y + heightCube/2);
 				//g.drawString(codeDroit, 70*i + 25, 20);
-				y += 2*heightCube;
+				y = 2*heightCube + marge;
 				g.drawRect(x, y, widthCube, heightCube);
-				
+				g.drawString(codeGauche, x + widthCube/2, y + heightCube/2);
 			}
 			
 			List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
