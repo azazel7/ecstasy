@@ -62,12 +62,13 @@ public class Fenetre extends JFrame{
     	 this.peem1000.ajouterObserver(this.panneauCommandeTapis);
     	 this.peem1000.ajouterObserver(this.journal);
     	 this.peem1000.ajouterObserverMagasin(this.journal);
+    	 
      }
      
 
 	public void initialiserComposant()
 	{
-		JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel();
+		JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel(), panneauControleSimple = new JPanel();
    	 	JSlider slideVitesse = new JSlider();
    	 	JButton boutonAjouterCommande = new JButton("Ajouter");
    		JMenuItem demarrer = new JMenuItem("Demarrer");
@@ -97,6 +98,9 @@ public class Fenetre extends JFrame{
 		panneauAjoutCommande.setLayout(new GridLayout(1, 2));
 		panneauAjoutCommande.setBorder(BorderFactory.createTitledBorder("Ajouter une commande"));
 		
+		panneauControleSimple.add(panneauVitesse);
+		panneauControleSimple.add(panneauAjoutCommande);
+		panneauControleSimple.setBorder(BorderFactory.createTitledBorder("Contrôle simple"));
 		this.principal.setLayout(new GridLayout(3, 2));
 		
 		//On remplis la barre de menus
@@ -120,11 +124,11 @@ public class Fenetre extends JFrame{
 		this.panneauCommandeTapis = new PanneauCommandeTapis();
 		this.panneauTapis = new PanneauTapis();
 		
-		this.principal.add(panneauVitesse);
-		this.principal.add(panneauAjoutCommande);
+		this.principal.add(panneauControleSimple);
 		this.principal.add(this.panneauCommandeTapis);
 		this.principal.add(this.panneauCommandeFile);
 		this.principal.add(this.panneauTapis);
+		principal.add(new PanneauStock());
 		this.setJMenuBar(barMenu);
 		this.setContentPane(principal);
 		this.setVisible(true);
