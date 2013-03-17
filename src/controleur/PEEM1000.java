@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import observation.FileCommandeObserver;
-import observation.IObserver;
+import observation.MagasinObserver;
 import observation.TapisRoulantObserver;
 
 import modele.Codeur;
@@ -145,11 +145,21 @@ public class PEEM1000
 		this.tapis.removeObserver(obs);
 	}
 	
-	public void ajouterObserver(FileCommandeObserver obs)
+	public void ajouterObserverMagasin(MagasinObserver obs)
+	{
+		Magasin.recupererInstance().addObserver(obs);
+	}
+	
+	public void retirerObservateurMagasin(MagasinObserver obs)
+	{
+		Magasin.recupererInstance().removeObserver(obs);
+	}
+	
+	public void ajouterObserverFile(FileCommandeObserver obs)
 	{
 		this.tapis.getFileDeCommande().addObserver(obs);
 	}
-	public void retirerObserver(FileCommandeObserver obs)
+	public void retirerObserverFile(FileCommandeObserver obs)
 	{
 		this.tapis.getFileDeCommande().addObserver(obs);
 	}

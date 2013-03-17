@@ -32,6 +32,7 @@ public class TapisRoulant extends TapisRoulantObservable
 			Tas nouveauTas = new Tas(commande, 0, this.numeroTasSuivant);
 			nouveauTas.majPosition();
 			this.tas.add(nouveauTas);
+			this.notifyCreateTas(nouveauTas);
 			//4 étant le nombre maximun de tas qui peuvent être placé simultanément sur la tapis
 			this.numeroTasSuivant = (this.numeroTasSuivant + 1)%4;
 		}

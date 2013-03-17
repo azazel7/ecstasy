@@ -99,6 +99,7 @@ public class AnalyseFichier
 						retour.add(commande);
 					}
 				}
+				br.close();
 			}
 		}
 		catch (Exception e)

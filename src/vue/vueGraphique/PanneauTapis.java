@@ -82,10 +82,32 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 				courant = iterator.next();
 				//On calcule le x
 				x = ((courant.lirePositionCourante() - 1)*interCube*6) + marge;
-				g.setColor(Color.pink);
+				if(courant.getListeMedocRestante().size() == 0)
+				{
+					g.setColor(Color.green);
+				}
+				else if(courant.getListeMedocRestante().equals(courant.getListeMedoc()))
+				{
+					g.setColor(Color.red);
+				}
+				else
+				{
+					g.setColor(Color.pink);
+				}
+				
 				g.fillOval(x, y, widthCube, widthCube);
 				g.setColor(Color.BLACK);
 				g.drawString(courant.getNumero() + "", x, y);
 			}
+	}
+	@Override
+	public void onCreateTas(Tas tas) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onDeleteTas(Tas tas) {
+		// TODO Auto-generated method stub
+		
 	}
 }

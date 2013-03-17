@@ -24,6 +24,11 @@ import observation.TapisRoulantObserver;
 public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private PEEM1000 peem1000;
 	
 	private DefaultMutableTreeNode racine;
@@ -177,6 +182,16 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 			}
 		}
 		return null;
+	}
+	@Override
+	public void onCreateTas(Tas tas) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onDeleteTas(Tas tas) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

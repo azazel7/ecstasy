@@ -1,6 +1,8 @@
 package modele;
 
-public class Magasin
+import observation.MagasinObservable;
+
+public class Magasin extends MagasinObservable
 {
 	private static int NOMBRE_RAIL = 20;
 	private static Magasin magasin = null;
@@ -64,7 +66,7 @@ public class Magasin
 		{
 			nombre = 0;
 		}
-		int retour = 0;;
+		int retour = 0;
 		RailMedicament rail;
 		position--;
 		if(position < 0 || position >= NOMBRE_RAIL)
@@ -84,6 +86,7 @@ public class Magasin
 		}
 		//on retire au stock
 		rail.setQuantite(rail.getQuantite() - retour);
+		this.notifyEject(retour, rail.getCode());
 		return retour;
 	}
 	

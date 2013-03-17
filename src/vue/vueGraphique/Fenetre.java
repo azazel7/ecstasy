@@ -54,16 +54,21 @@ public class Fenetre extends JFrame{
 	private PanneauTapis panneauTapis;
 	private PanneauCommandeTapis panneauCommandeTapis;
 	private PEEM1000 peem1000;
+	private Journal journal;
 	/**
 	 * Constructeur mettant en place la disposition des composant
 	 */	
      public Fenetre()
      {
     	 this.peem1000 = PEEM1000.recupererInstance();
+    	 this.journal = new Journal();
     	 this.initialiserComposant();
-    	 this.peem1000.ajouterObserver(this.panneauCommandeFile);
+    	 this.peem1000.ajouterObserverFile(this.panneauCommandeFile);
     	 this.peem1000.ajouterObserver(this.panneauTapis);
     	 this.peem1000.ajouterObserver(this.panneauCommandeTapis);
+    	 this.peem1000.ajouterObserver(this.journal);
+    	 System.out.println(this.journal);
+    	 this.peem1000.ajouterObserverMagasin(this.journal);
      }
      
 

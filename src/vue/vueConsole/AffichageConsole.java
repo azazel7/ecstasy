@@ -74,5 +74,15 @@ public class AffichageConsole implements TapisRoulantObserver
 		afficherInstantConsole(peem1000);
 		
 	}
+	@Override
+	public void onCreateTas(Tas tas) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onDeleteTas(Tas tas) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
