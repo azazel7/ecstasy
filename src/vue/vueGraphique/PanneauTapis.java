@@ -133,12 +133,15 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 				JLabel lab;
 				Tas courant;
 				Iterator<Tas> iterator = listeTas.iterator();
-				y = heightCube;
+				y = heightCube + heightCube/2;
 				while(iterator.hasNext())
 				{
 					courant = iterator.next();
 					x = ((courant.lirePositionCourante() - 1)*interCube*6) + marge;
+					g.setColor(Color.pink);
 					g.fillOval(x, y, widthCube, widthCube);
+					g.setColor(Color.BLACK);
+					g.drawString(courant.getNumero() + "", x, y);
 				}
 			
 			}
