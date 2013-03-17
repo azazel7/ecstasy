@@ -11,10 +11,13 @@ public class Magasin
 		this.stock = new RailMedicament[20];
 		char lettre[] = {'A'};
 		//On remplis les stocks
-		for(int i = 0; i < NOMBRE_RAIL; i++)
+		for(int i = 0; i < NOMBRE_RAIL/2; i++)
 		{
-			this.stock[i] = new RailMedicament(new String(lettre), 50);
-			lettre[0] ++;
+			lettre[0] = (char)('A' + i);
+			this.stock[2*i+1] = new RailMedicament(new String(lettre), 50);
+			lettre[0] = (char)('A' + i + NOMBRE_RAIL/2);
+			this.stock[2*i] = new RailMedicament(new String(lettre), 50);
+			
 		}
 	}
 	/**
