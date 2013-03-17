@@ -40,17 +40,6 @@ public class Fenetre extends JFrame{
   */
 	private static final long serialVersionUID = 1L;
 	 
-	 private JMenuBar barMenu = new JMenuBar();
-	 private JMenu fichierMenu = new JMenu("Fichier");
-	 private JMenu aide = new JMenu("Aide");
-			
-	private JMenuItem demarrer = new JMenuItem("Demarrer");
-	private JMenuItem stopper = new JMenuItem("Stopper");
-	private JMenuItem ajouterFichierCommande = new JMenuItem("Ajouter un fichier de commande");
-	private JMenuItem sauvegarderLog = new JMenuItem("Sauvegarder les logs");
-	private JMenuItem quitter = new JMenuItem("Quitter");
-	
-	
 	private JPanel principal = new JPanel(null);
 	private JTextField texteNouvelleCommande = new JTextField();
 	private PanneauCommandeFile panneauCommandeFile;
@@ -81,6 +70,13 @@ public class Fenetre extends JFrame{
 		JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel();
    	 	JSlider slideVitesse = new JSlider();
    	 	JButton boutonAjouterCommande = new JButton("Ajouter");
+   		JMenuItem demarrer = new JMenuItem("Demarrer");
+   		JMenuItem stopper = new JMenuItem("Stopper");
+   		JMenuItem ajouterFichierCommande = new JMenuItem("Ajouter un fichier de commande");
+   		JMenuItem sauvegarderLog = new JMenuItem("Sauvegarder les logs");
+   		JMenuItem quitter = new JMenuItem("Quitter");
+   		JMenuBar barMenu = new JMenuBar();
+   		JMenu fichierMenu = new JMenu("Fichier");
    	 
 		this.setTitle("AGL");
 		this.setSize(700, 650);
@@ -102,22 +98,21 @@ public class Fenetre extends JFrame{
 		panneauAjoutCommande.setBorder(BorderFactory.createTitledBorder("Ajouter une commande"));
 		
 		this.principal.setLayout(new GridLayout(3, 2));
-		this.fichierMenu.add(demarrer);
-		this.fichierMenu.add(stopper);
-		this.fichierMenu.add(ajouterFichierCommande);
-		this.fichierMenu.add(sauvegarderLog);
-		this.fichierMenu.add(quitter);
-		this.demarrer.addMouseListener(new DemarrerPEEM1000());
-		this.demarrer.setAccelerator(KeyStroke.getKeyStroke('D', KeyEvent.CTRL_DOWN_MASK));
-		this.stopper.addMouseListener(new StopperPEEM1000());
-		this.ajouterFichierCommande.addMouseListener(new AjouterFichierCommande());
-		this.quitter.addMouseListener(new QuitterApplication());
-		this.sauvegarderLog.addMouseListener(new SauvegarderLogs());
 		
-		this.barMenu.add(fichierMenu);
-		this.barMenu.add(aide);
-
-
+		//On remplis la barre de menus
+		fichierMenu.add(demarrer);
+		fichierMenu.add(stopper);
+		fichierMenu.add(ajouterFichierCommande);
+		fichierMenu.add(sauvegarderLog);
+		fichierMenu.add(quitter);
+		
+		//Ajout de listener
+		demarrer.addMouseListener(new DemarrerPEEM1000());
+		demarrer.setAccelerator(KeyStroke.getKeyStroke('D', KeyEvent.CTRL_DOWN_MASK));
+		stopper.addMouseListener(new StopperPEEM1000());
+		ajouterFichierCommande.addMouseListener(new AjouterFichierCommande());
+		quitter.addMouseListener(new QuitterApplication());
+		sauvegarderLog.addMouseListener(new SauvegarderLogs());
 		
 		this.panneauCommandeFile = new PanneauCommandeFile();
 		this.panneauCommandeTapis = new PanneauCommandeTapis();
