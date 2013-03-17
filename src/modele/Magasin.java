@@ -89,16 +89,17 @@ public class Magasin
 	 * @param position
 	 * @param nombre
 	 */
-	public void rechargerMedoc(int position, int nombre)
+	public int rechargerMedoc(int position, int nombre)
 	{
 		position--;
 		if(position < 0 || position >= NOMBRE_RAIL)
 		{
-			return;
+			return -1;
 		}
 		
 		RailMedicament courant = this.stock[position];
 		courant.setQuantite(courant.getQuantite() + nombre);
+		return courant.getQuantite();
 	}
 	
 	/**
@@ -106,7 +107,7 @@ public class Magasin
 	 * @param position
 	 * @param nombre
 	 */
-	public void rechargerMedoc(String code, int nombre)
+	public int rechargerMedoc(String code, int nombre)
 	{
 		String codeCourant;
 		int position = -1;
@@ -119,7 +120,7 @@ public class Magasin
 				break;
 			}
 		}
-		rechargerMedoc(position, nombre);
+		return rechargerMedoc(position, nombre);
 	}
 	public int lireQUantite(int position)
 	{

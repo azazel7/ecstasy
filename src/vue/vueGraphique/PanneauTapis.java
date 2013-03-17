@@ -2,6 +2,7 @@ package vue.vueGraphique;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Iterator;
@@ -31,13 +32,13 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		this.peem1000 = PEEM1000.recupererInstance();
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createTitledBorder("Tapis"));
-		this.mettreAJour();
+		//this.mettreAJour();
 	}
 	@Override
 	public void onWaitTick()
 	{
-		this.mettreAJour();
-		
+		//this.mettreAJour();
+		this.repaint();
 	}
 
 	public void mettreAJour()
@@ -92,5 +93,54 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		}
 		this.updateUI();
 	}
-
+	
+	public void paintComponent(Graphics g)
+	{
+		g.setColor(Color.white);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.setColor(Color.black);
+		//Ceux qui n'aiment pas les maths, sauter ce passage
+		int marge = 20;
+		int reelWidth = this.getWidth() - marge, reelHeight = this.getHeight() - marge;
+		int heightCube = reelHeight/3;
+		int interCube = reelWidth/59;
+		int widthCube = interCube*5;
+		int x, y;
+		Magasin magasin = Magasin.recupererInstance();
+		//getmagasin
+			for(int i = 1; i <= 10; i++)
+			{
+				String codeDroit, codeGauche;
+				codeDroit = magasin.lireCode(i*2);
+				codeGauche = magasin.lireCode((i*2) - 1);
+				x = ((i - 1)*interCube*6) + marge;
+				y = marge;
+				g.drawRect(x, marge, widthCube, heightCube);
+				//g.drawString(codeDroit, 70*i + 25, 20);
+				y += 2*heightCube;
+				g.drawRect(x, y, widthCube, heightCube);
+				
+			}
+			
+			List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
+			if(listeTas.size() == 0)
+			{
+				
+			}
+			else
+			{
+				JPanel panel;
+				JLabel lab;
+				Tas courant;
+				Iterator<Tas> iterator = listeTas.iterator();
+				y = heightCube;
+				while(iterator.hasNext())
+				{
+					courant = iterator.next();
+					x = ((courant.lirePositionCourante() - 1)*interCube*6) + marge;
+					g.fillOval(x, y, widthCube, widthCube);
+				}
+			
+			}
+	}
 }
