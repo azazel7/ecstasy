@@ -47,6 +47,9 @@ public class Fenetre extends JFrame{
 	private JMenuItem demarrer = new JMenuItem("Demarrer");
 	private JMenuItem stopper = new JMenuItem("Stopper");
 	private JMenuItem ajouterFichierCommande = new JMenuItem("Ajouter un fichier de commande");
+	private JMenuItem sauvegarderLog = new JMenuItem("Sauvegarder les logs");
+	private JMenuItem quitter = new JMenuItem("Quitter");
+	
 	
 	private JPanel principal = new JPanel(null);
 	private JTextField texteNouvelleCommande = new JTextField();
@@ -67,7 +70,6 @@ public class Fenetre extends JFrame{
     	 this.peem1000.ajouterObserver(this.panneauTapis);
     	 this.peem1000.ajouterObserver(this.panneauCommandeTapis);
     	 this.peem1000.ajouterObserver(this.journal);
-    	 System.out.println(this.journal);
     	 this.peem1000.ajouterObserverMagasin(this.journal);
      }
      
@@ -101,11 +103,14 @@ public class Fenetre extends JFrame{
 		this.fichierMenu.add(demarrer);
 		this.fichierMenu.add(stopper);
 		this.fichierMenu.add(ajouterFichierCommande);
-		
+		this.fichierMenu.add(sauvegarderLog);
+		this.fichierMenu.add(quitter);
 		this.demarrer.addMouseListener(new DemarrerPEEM1000());
 		this.demarrer.setAccelerator(KeyStroke.getKeyStroke('D', KeyEvent.CTRL_DOWN_MASK));
 		this.stopper.addMouseListener(new StopperPEEM1000());
 		this.ajouterFichierCommande.addMouseListener(new AjouterFichierCommande());
+		this.quitter.addMouseListener(new QuitterApplication());
+		this.sauvegarderLog.addMouseListener(new SauvegarderLogs());
 		
 		this.barMenu.add(fichierMenu);
 		this.barMenu.add(aide);
@@ -162,6 +167,11 @@ public class Fenetre extends JFrame{
 		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	public void quitter()
+	{
+		this.peem1000.stopper();
+		this.dispose();
+	}
 	
 	class DemarrerPEEM1000 extends MouseAdapter
 	{
@@ -249,6 +259,22 @@ public class Fenetre extends JFrame{
 				peem1000.modifierVitesse(nouvelleValeur);
 			}
 		}
+	}
+	
+	class QuitterApplication extends MouseAdapter
+	{
+		public void mouseReleased(MouseEvent event)
+      	{
+			quitter();//Voir classe Fenetre			
+      	}
+	}
+	
+	class SauvegarderLogs extends MouseAdapter
+	{
+		public void mouseReleased(MouseEvent event)
+      	{
+			journal.enregistrerLogs("toto");
+      	}
 	}
 	public static void main( String arg[] )
      {
