@@ -6,7 +6,7 @@ public class Magasin
 	private static Magasin magasin = null;
 	private RailMedicament stock[];
 	
-	public Magasin()
+	private Magasin()
 	{
 		this.stock = new RailMedicament[20];
 		char lettre[] = {'A'};
