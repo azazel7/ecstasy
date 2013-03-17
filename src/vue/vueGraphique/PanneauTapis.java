@@ -4,11 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import modele.Magasin;
+import modele.Tas;
 
 import controleur.PEEM1000;
 
@@ -29,8 +34,9 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		this.mettreAJour();
 	}
 	@Override
-	public void onWaitTick() {
-		// TODO Auto-generated method stub
+	public void onWaitTick()
+	{
+		this.mettreAJour();
 		
 	}
 
@@ -39,24 +45,52 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		this.removeAll();
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = c.gridy = 0;
+		Magasin magasin = Magasin.recupererInstance();
+		
+		//getmagasin
 		for(int i = 1; i <= 10; i++)
 		{
-			JButton bouton = new JButton("" + i);
-			JButton bouton2 = new JButton("" + i);
-			JLabel label = new JLabel("7");
-			label.setBackground(Color.cyan);
+			PanneauEjecteur panneauEjecteurDroit, panneauEjecteurGauche;
+			String codeDroit, codeGauche;
+			int quantiteDroite, quantiteGauche;
+			codeDroit = magasin.lireCode(i*2);
+			quantiteDroite = magasin.lireQUantite(i*2);
+			codeGauche = magasin.lireCode((i*2) - 1);
+			quantiteGauche = magasin.lireQUantite((i*2) - 1);
+			panneauEjecteurDroit = new PanneauEjecteur(codeDroit, quantiteDroite);
+			panneauEjecteurGauche = new PanneauEjecteur(codeGauche, quantiteGauche);
+
 			c.gridx = i;
 			c.gridy = 0;
-			this.add(new PanneauEjecteur("D", 50), c);
-			c.gridy = 1;
-			if(i %2 == 0)
-			{
-				this.add(label, c);
-			}
-			
+			this.add(panneauEjecteurGauche, c);			
 			c.gridy = 2;
-			this.add(bouton2, c);
+			this.add(panneauEjecteurDroit, c);
 		}
+		
+		List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
+		c.gridy = 1;
+		if(listeTas.size() == 0)
+		{
+			
+			this.add(new JPanel(), c);
+		}
+		else
+		{
+			JPanel panel;
+			JLabel lab;
+			Tas courant;
+			Iterator<Tas> iterator = listeTas.iterator();
+			while(iterator.hasNext())
+			{
+				courant = iterator.next();
+				panel = new JPanel();
+				c.gridx = courant.lirePositionCourante();
+				lab = new JLabel("(" + courant.getNumero() + ")");
+				panel.add(lab);
+				this.add(panel, c);
+			}
+		}
+		this.updateUI();
 	}
 
 }

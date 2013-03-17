@@ -121,7 +121,32 @@ public class Magasin
 		}
 		rechargerMedoc(position, nombre);
 	}
-	
+	public int lireQUantite(int position)
+	{
+		position--;
+		if(position < 0 || position >= NOMBRE_RAIL)
+		{
+			return -1;
+		}
+		
+		RailMedicament courant = this.stock[position];
+		return courant.getQuantite();
+	}
+	public int lireQuantite(String code)
+	{
+		String codeCourant;
+		int position = -1;
+		for(int i = 0; i < NOMBRE_RAIL; i++)
+		{
+			codeCourant = this.stock[i].getCode();
+			if(codeCourant.equals(code))
+			{
+				position = i;
+				break;
+			}
+		}
+		return lireQUantite(position);
+	}
 	public RailMedicament[] getStock() {
 		return stock;
 	}

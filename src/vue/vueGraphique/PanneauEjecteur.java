@@ -1,12 +1,8 @@
 package vue.vueGraphique;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -30,13 +26,13 @@ public class PanneauEjecteur extends JPanel
 		JButton boutonRecharger = new JButton("+"), boutonDecharger = new JButton("-");
 		JLabel labelCode = new JLabel(this.code), labelQuantitee = new JLabel("" + this.quantite);
 		this.setLayout(new GridLayout(2,2));
-		GridBagConstraints c = new GridBagConstraints();
 		this.setBorder(BorderFactory.createTitledBorder(""));
 		this.add(boutonRecharger);
 		this.add(labelCode);
 		this.add(boutonDecharger);
 		this.add(labelQuantitee);
-		
+		boutonDecharger.addMouseListener(new DechargerStock());
+		boutonRecharger.addMouseListener(new RechargerStock());
 		
 	}
 	
@@ -46,7 +42,6 @@ public class PanneauEjecteur extends JPanel
 		@Override
 		public void mouseReleased(MouseEvent arg0)
 		{
-			// TODO Auto-generated method stub
 			
 		}
 		
