@@ -4,6 +4,7 @@ import observation.MagasinObservable;
 
 public class Magasin extends MagasinObservable
 {
+	public static int MAX_STOCK = 50;
 	private static int NOMBRE_RAIL = 20;
 	private static Magasin magasin = null;
 	private RailMedicament stock[];

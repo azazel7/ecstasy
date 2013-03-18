@@ -7,11 +7,13 @@ import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
+import observation.MagasinObserver;
+
 import modele.Magasin;
 import modele.RailMedicament;
 
 //TODO a faire
-public class PanneauStock extends JPanel
+public class PanneauStock extends JPanel implements MagasinObserver
 {
 	private Magasin magasin = Magasin.recupererInstance();
 	private PanneauEjecteur[] listeEjecteur;
@@ -38,5 +40,19 @@ public class PanneauStock extends JPanel
 				c.gridy++;
 			}
 		}
+	}
+
+	@Override
+	public void onEject(int nombre, String code)
+	{
+		for(PanneauEjecteur rail : this.listeEjecteur)
+		{
+			if(code.equals(rail.getCode()))
+			{
+				rail.setQuantite(rail.getQuantite() - nombre);
+				break;
+			}
+		}
+		
 	}
 }

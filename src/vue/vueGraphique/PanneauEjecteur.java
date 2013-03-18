@@ -45,11 +45,14 @@ public class PanneauEjecteur extends JPanel
 		@Override
 		public void mouseReleased(MouseEvent arg0)
 		{
-			Magasin magasin = Magasin.recupererInstance();
-			int stock = magasin.rechargerMedoc(code, 1);
-			if(stock > 0)
+			if(quantite < Magasin.MAX_STOCK)
 			{
-				labelQuantitee.setText("" + stock);
+				Magasin magasin = Magasin.recupererInstance();
+				magasin.rechargerMedoc(code, 1);
+				
+					quantite++;
+					labelQuantitee.setText("" + quantite);
+					labelQuantitee.updateUI();
 			}
 		}
 		
@@ -61,9 +64,43 @@ public class PanneauEjecteur extends JPanel
 		@Override
 		public void mouseReleased(MouseEvent arg0)
 		{
-			// TODO Auto-generated method stub
+			if(quantite > 0)
+			{
+				Magasin magasin = Magasin.recupererInstance();
+				int stock = magasin.rechargerMedoc(code, -1);
+				if(stock > 0)
+				{
+					quantite--;
+					labelQuantitee.setText("" + quantite);
+					labelQuantitee.updateUI();
+				}
+			}
 			
 		}
 		
 	}
+
+	public String getCode()
+	{
+		return code;
+	}
+
+	public void setCode(String code)
+	{
+		this.code = code;
+	}
+
+	public int getQuantite()
+	{
+		return quantite;
+	}
+
+	public void setQuantite(int quantite)
+	{
+		this.quantite = quantite;
+		this.labelQuantitee.setText("" + this.quantite);
+		this.labelQuantitee.updateUI();
+	}
+	
+	
 }

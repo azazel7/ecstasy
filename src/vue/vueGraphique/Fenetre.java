@@ -48,6 +48,7 @@ public class Fenetre extends JFrame{
 	private PEEM1000 peem1000;
 	private Journal journal;
 	private String cheminPrecedant;
+	private PanneauStock panneauStock;
 	
 	/**
 	 * Constructeur mettant en place la disposition des composant
@@ -62,7 +63,7 @@ public class Fenetre extends JFrame{
     	 this.peem1000.ajouterObserver(this.panneauCommandeTapis);
     	 this.peem1000.ajouterObserver(this.journal);
     	 this.peem1000.ajouterObserverMagasin(this.journal);
-    	 
+    	 this.peem1000.ajouterObserverMagasin(this.panneauStock);
      }
      
 
@@ -86,7 +87,7 @@ public class Fenetre extends JFrame{
 		
 		slideVitesse.setMaximum(4000);
 		slideVitesse.setMinimum(0);
-		slideVitesse.setValue(Codeur.VITESSE_CODEUR_DEFAUT);
+		slideVitesse.setValue(slideVitesse.getMaximum() - Codeur.VITESSE_CODEUR_DEFAUT);
 		slideVitesse.addChangeListener(new AjusterVitesse());
 		panneauVitesse.add(slideVitesse);
 		panneauVitesse.setBorder(BorderFactory.createTitledBorder("Modifier vitesse"));
@@ -123,12 +124,13 @@ public class Fenetre extends JFrame{
 		this.panneauCommandeFile = new PanneauCommandeFile();
 		this.panneauCommandeTapis = new PanneauCommandeTapis();
 		this.panneauTapis = new PanneauTapis();
+		this.panneauStock = new PanneauStock();
 		
 		this.principal.add(panneauControleSimple);
 		this.principal.add(this.panneauCommandeTapis);
 		this.principal.add(this.panneauCommandeFile);
 		this.principal.add(this.panneauTapis);
-		principal.add(new PanneauStock());
+		this.principal.add(this.panneauStock);
 		this.setJMenuBar(barMenu);
 		this.setContentPane(principal);
 		this.setVisible(true);
@@ -259,7 +261,8 @@ public class Fenetre extends JFrame{
 			if(source != null)
 			{
 				int nouvelleValeur = source.getValue();
-				peem1000.modifierVitesse(nouvelleValeur);
+				int max = source.getMaximum();
+				peem1000.modifierVitesse(max - nouvelleValeur);
 			}
 		}
 	}
