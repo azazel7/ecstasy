@@ -105,7 +105,10 @@ public class Magasin extends MagasinObservable
 		}
 		
 		RailMedicament courant = this.stock[position];
-		courant.setQuantite(courant.getQuantite() + nombre);
+		if(courant.getQuantite() + nombre <= MAX_STOCK)
+		{
+			courant.setQuantite(courant.getQuantite() + nombre);
+		}
 		return courant.getQuantite();
 	}
 	

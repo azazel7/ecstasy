@@ -55,7 +55,6 @@ public class PanneauEjecteur extends JPanel
 					labelQuantitee.updateUI();
 			}
 		}
-		
 	}
 
 	public class DechargerStock extends MouseAdapter
