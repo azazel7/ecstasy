@@ -130,7 +130,7 @@ public class Magasin extends MagasinObservable
 				break;
 			}
 		}
-		return rechargerMedoc(position, nombre);
+		return rechargerMedoc(position+1, nombre);
 	}
 	public int lireQUantite(int position)
 	{
