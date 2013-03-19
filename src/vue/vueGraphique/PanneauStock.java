@@ -55,4 +55,11 @@ public class PanneauStock extends JPanel implements MagasinObserver
 		}
 		
 	}
+
+	@Override
+	public void onOutOfStock(String code)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

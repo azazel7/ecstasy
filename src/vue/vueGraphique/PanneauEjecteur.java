@@ -41,7 +41,6 @@ public class PanneauEjecteur extends JPanel
 	
 	public class RechargerStock extends MouseAdapter
 	{
-
 		@Override
 		public void mouseReleased(MouseEvent arg0)
 		{

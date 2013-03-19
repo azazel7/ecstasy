@@ -88,6 +88,10 @@ public class Magasin extends MagasinObservable
 		//on retire au stock
 		rail.setQuantite(rail.getQuantite() - retour);
 		this.notifyEject(retour, rail.getCode());
+		if(rail.getQuantite() == 0)
+		{
+			this.notifyOutOfStock(rail.getCode());
+		}
 		return retour;
 	}
 	

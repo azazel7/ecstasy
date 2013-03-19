@@ -47,7 +47,7 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 
 	public void initialiserComposant()
 	{
-		this.racine = new DefaultMutableTreeNode("Sujet");
+		this.racine = new DefaultMutableTreeNode("Commandes");
 		this.arbre = new JTree(this.racine);
 		this.updateArbre();
 		JScrollPane scrollpane = new JScrollPane(this.arbre);

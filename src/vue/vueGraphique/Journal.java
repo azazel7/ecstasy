@@ -90,6 +90,12 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 		this.ecrire("Ejection: " + code + " " + nombre);
 	}
 	
+	@Override
+	public void onOutOfStock(String code)
+	{
+			this.ecrire("Le medicament " + code + " est en rupture de stock");	
+	}
+	
 	public void enregistrerLogs(String chemin)
 	{
 		File fichier = new File(chemin);
@@ -105,5 +111,7 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 			e.printStackTrace();
 		}
 	}
+
+	
 
 }

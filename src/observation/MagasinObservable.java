@@ -7,4 +7,8 @@ public class MagasinObservable extends BetterObservable
 		callWithObservers("onEject", nombre, code);
 	}
 	
+	public void notifyOutOfStock(String code)
+	{
+		callWithObservers("onOutOfStock", code);
+	}
 }
