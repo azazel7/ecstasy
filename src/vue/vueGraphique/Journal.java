@@ -52,6 +52,7 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 		Tas courant;
 		Iterator<Tas> iteratorTapis = peem1000.getListeCommandeSurTapis().iterator();
 		Iterator<Map<String, Integer>> iteratorFile = peem1000.getListeCommande().iterator();
+		this.ecrire("");
 		this.ecrire("Attente d'un tick");
 		this.ecrire("Commande dans la file:");
 		while(iteratorFile.hasNext())
@@ -87,13 +88,16 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 	public void onCreateTas(Tas tas)
 	{
 		String listeMedocString = AnalyseFichier.ecrireCommande(tas.getListeMedoc());
+		this.ecrire("");
 		this.ecrire("Nouveau tas N°" + tas.getNumero() + " (" + listeMedocString + ")");
+		this.ecrire("");
 	}
 
 	@Override
 	public void onDeleteTas(Tas tas)
 	{
 		String listeMedocString = AnalyseFichier.ecrireCommande(tas.getListeMedoc());
+		this.ecrire("");
 		if(tas.getListeMedocRestante().size() == 0)
 		{
 			this.ecrire("Destruction du tas: " + listeMedocString);
@@ -103,11 +107,18 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 			String listeMedocRestantString = AnalyseFichier.ecrireCommande(tas.getListeMedocRestante());
 			this.ecrire("Destruction du tas: " + listeMedocString + "( " + listeMedocRestantString + " )");
 		}
+		this.ecrire("");
 	}
 	@Override
 	public void onEject(int nombre, String code)
 	{
 		this.ecrire("Ejection: " + code + " " + nombre);
+	}
+	
+	@Override
+	public void onOutOfStock(String code)
+	{
+			this.ecrire("Le medicament " + code + " est en rupture de stock");	
 	}
 	
 	public void enregistrerLogs(String chemin)
@@ -121,9 +132,10 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	
 
 }

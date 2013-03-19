@@ -88,6 +88,10 @@ public class Magasin extends MagasinObservable
 		//on retire au stock
 		rail.setQuantite(rail.getQuantite() - retour);
 		this.notifyEject(retour, rail.getCode());
+		if(rail.getQuantite() == 0)
+		{
+			this.notifyOutOfStock(rail.getCode());
+		}
 		return retour;
 	}
 	
@@ -105,7 +109,7 @@ public class Magasin extends MagasinObservable
 		}
 		
 		RailMedicament courant = this.stock[position];
-		if(courant.getQuantite() + nombre <= MAX_STOCK)
+		if(courant.getQuantite() + nombre <= MAX_STOCK && courant.getQuantite() + nombre >= 0)
 		{
 			courant.setQuantite(courant.getQuantite() + nombre);
 		}
@@ -130,7 +134,7 @@ public class Magasin extends MagasinObservable
 				break;
 			}
 		}
-		return rechargerMedoc(position, nombre);
+		return rechargerMedoc(position+1, nombre);
 	}
 	public int lireQUantite(int position)
 	{
