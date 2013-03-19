@@ -1,9 +1,15 @@
 package vue.vueGraphique;
 
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import controleur.AnalyseFichier;
 import controleur.PEEM1000;
@@ -12,19 +18,33 @@ import modele.Tas;
 import observation.MagasinObserver;
 import observation.TapisRoulantObserver;
 
-public class Journal implements TapisRoulantObserver, MagasinObserver
+public class Journal extends JPanel implements TapisRoulantObserver, MagasinObserver
 {
+	private static final long serialVersionUID = 1L;
 	private String journal = new String();
 	private PEEM1000 peem1000 = PEEM1000.recupererInstance();
 	
+	private JTextArea text;
+	
+	public Journal()
+	{
+		this.text = new JTextArea();
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.add(this.text);
+		this.add(scrollPane);
+		this.setLayout(new GridLayout(1,1));
+		this.setBorder(BorderFactory.createTitledBorder("Log"));
+	}
 	public void ecrire(String chaine)
 	{
 		this.journal += chaine + "\n";
+		this.text.setText(this.journal);
 	}
 	
 	public void ecrireSansRetour(String chaine)
 	{
 		this.journal += chaine;
+		this.text.setText(this.journal);
 	}
 	@Override
 	public void onWaitTick()

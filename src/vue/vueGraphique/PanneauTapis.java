@@ -15,6 +15,7 @@ import modele.Tas;
 import controleur.PEEM1000;
 
 import observation.TapisRoulantObserver;
+import sun.org.mozilla.javascript.ast.WithStatement;
 
 public class PanneauTapis extends JPanel implements TapisRoulantObserver
 {
@@ -75,6 +76,12 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 			
 			Tas courant;
 			Iterator<Tas> iterator = listeTas.iterator();
+			int diametre = widthCube;
+			if(widthCube > heightCube)
+			{
+				diametre = heightCube;
+			}
+			diametre = diametre - diametre/10;
 			y = heightCube + heightCube/2;
 			//On peint les tas
 			while(iterator.hasNext())
@@ -95,7 +102,7 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 					g.setColor(Color.pink);
 				}
 				
-				g.fillOval(x, y, widthCube, widthCube);
+				g.fillOval(x, y, diametre, diametre);
 				g.setColor(Color.BLACK);
 				g.drawString(courant.getNumero() + "", x, y);
 			}
