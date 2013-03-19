@@ -112,7 +112,8 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 			{
 				this.redeployerArbre(pathExpand);
 			}
-			this.arbre.expandPath(new TreePath(this.racine));
+			//this.arbre.expandPath(new TreePath(this.racine));
+			this.expand();
 			//On lance la mise à jour graphique
 			SwingUtilities.invokeLater(new Runnable()
 			{
@@ -183,6 +184,20 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 		}
 		return null;
 	}
+	
+	private void expand()
+	{
+		Enumeration children = this.racine.children();
+		Object tmp, tab[] = new Object[2];
+		tab[0] = this.racine;
+		while (children.hasMoreElements())
+		{
+			tmp = children.nextElement();
+			tab[1] = tmp;
+			this.arbre.expandPath(new TreePath(tab));
+		}
+	}
+	
 	@Override
 	public void onCreateTas(Tas tas) {
 		// TODO Auto-generated method stub

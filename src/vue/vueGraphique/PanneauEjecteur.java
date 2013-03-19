@@ -1,5 +1,6 @@
 package vue.vueGraphique;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -53,6 +54,7 @@ public class PanneauEjecteur extends JPanel
 					labelQuantitee.setText("" + quantite);
 					labelQuantitee.updateUI();
 			}
+			verifierCouleur();
 		}
 	}
 
@@ -66,18 +68,49 @@ public class PanneauEjecteur extends JPanel
 			{
 				Magasin magasin = Magasin.recupererInstance();
 				int stock = magasin.rechargerMedoc(code, -1);
-				if(stock > 0)
+				if(stock >= 0)
 				{
 					quantite--;
 					labelQuantitee.setText("" + quantite);
 					labelQuantitee.updateUI();
 				}
 			}
-			
+			verifierCouleur();
 		}
-		
 	}
 
+	public void verifierCouleur()
+	{
+		if(this.quantite == 0)
+		{
+			this.alerteZeroPourcent();
+		}
+		else if(this.quantite > Magasin.MAX_STOCK/10)
+		{
+			this.calme();
+		}
+		else
+		{
+			this.alerteDixPoucent();
+		}
+	}
+	public void alerteZeroPourcent()
+	{
+		this.labelCode.setForeground(Color.red);
+		this.labelCode.updateUI();
+	}
+	
+	public void calme()
+	{
+		this.labelCode.setForeground(Color.black);
+		this.labelCode.updateUI();
+	}
+	
+	public void alerteDixPoucent()
+	{
+		this.labelCode.setForeground(Color.orange);
+		this.labelCode.updateUI();
+	}
 	public String getCode()
 	{
 		return code;
@@ -97,6 +130,7 @@ public class PanneauEjecteur extends JPanel
 	{
 		this.quantite = quantite;
 		this.labelQuantitee.setText("" + this.quantite);
+		this.verifierCouleur();
 		this.labelQuantitee.updateUI();
 	}
 	
