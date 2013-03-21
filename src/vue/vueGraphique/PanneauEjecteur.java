@@ -138,5 +138,17 @@ public class PanneauEjecteur extends JPanel
 		this.labelQuantitee.updateUI();
 	}
 	
+	public class ChangerMedicament extends MouseAdapter
+	{
+		@Override
+		public void mouseReleased(MouseEvent arg0)
+		{
+			//tester clic droit
+			//modifier le code
+			//modifier affichage
+			//notifier l'affichage du tapis
+			//mettre à jout le graphique
+		}
+	}
 	
 }
