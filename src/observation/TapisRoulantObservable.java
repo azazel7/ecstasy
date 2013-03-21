@@ -18,4 +18,8 @@ public class TapisRoulantObservable extends BetterObservable
 	{
 		callWithObservers("onDeleteTas", tas);
 	}
+	public void notifyClearCarpet()
+	{
+		callWithObservers("onClearCarpet");
+	}
 }

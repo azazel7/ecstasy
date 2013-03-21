@@ -5,12 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,7 +26,10 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import observation.TapisRoulantObserver;
+
 import modele.Codeur;
+import modele.Tas;
 
 
 import controleur.PEEM1000;
@@ -69,9 +76,9 @@ public class Fenetre extends JFrame{
 
 	public void initialiserComposant()
 	{
-		JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel(), panneauControleSimple = new JPanel();
+		JPanel panneauVitesse = new JPanel(), panneauAjoutCommande = new JPanel(), panneauDemarrer = new JPanel(), panneauControleSimple = new JPanel();
    	 	JSlider slideVitesse = new JSlider();
-   	 	JButton boutonAjouterCommande = new JButton("Ajouter");
+   	 	JButton boutonAjouterCommande = new JButton("Ajouter"), boutonTickManuel = new JButton("Passer un tick"), boutonTogglePause = new JButton("Demarrer"), boutonViderTapis = new JButton("Vider tapis et file");
    		JMenuItem demarrer = new JMenuItem("Demarrer");
    		JMenuItem stopper = new JMenuItem("Stopper");
    		JMenuItem ajouterFichierCommande = new JMenuItem("Ajouter un fichier de commande");
@@ -89,7 +96,9 @@ public class Fenetre extends JFrame{
 		slideVitesse.setMinimum(0);
 		slideVitesse.setValue(slideVitesse.getMaximum() - Codeur.VITESSE_CODEUR_DEFAUT);
 		slideVitesse.addChangeListener(new AjusterVitesse());
+		panneauVitesse.add(new JLabel("-"));
 		panneauVitesse.add(slideVitesse);
+		panneauVitesse.add(new JLabel("+"));
 		panneauVitesse.setBorder(BorderFactory.createTitledBorder("Modifier vitesse"));
 		
 		boutonAjouterCommande.addMouseListener(new AjouterCommande());
@@ -99,10 +108,21 @@ public class Fenetre extends JFrame{
 		panneauAjoutCommande.setLayout(new GridLayout(1, 2));
 		panneauAjoutCommande.setBorder(BorderFactory.createTitledBorder("Ajouter une commande"));
 		
+		boutonTogglePause.addMouseListener(new TogglePause(boutonTogglePause));
+		boutonViderTapis.addMouseListener(new ViderCommandeTapis());
+		boutonTickManuel.addMouseListener(new TickManuel());
+		panneauDemarrer.setLayout(new GridLayout(1, 2));
+		panneauDemarrer.setBorder(BorderFactory.createTitledBorder("Controle tapis"));
+		panneauDemarrer.add(boutonTogglePause);
+		panneauDemarrer.add(boutonTickManuel);
+		panneauDemarrer.add(boutonViderTapis);
+		
 		panneauControleSimple.add(panneauVitesse);
 		panneauControleSimple.add(panneauAjoutCommande);
+		panneauControleSimple.add(panneauDemarrer);
 		panneauControleSimple.setBorder(BorderFactory.createTitledBorder("Contrôle simple"));
 		this.principal.setLayout(new GridLayout(3, 2));
+		
 		
 		//On remplis la barre de menus
 		fichierMenu.add(demarrer);
@@ -120,6 +140,17 @@ public class Fenetre extends JFrame{
 		ajouterFichierCommande.addMouseListener(new AjouterFichierCommande());
 		quitter.addMouseListener(new QuitterApplication());
 		sauvegarderLog.addMouseListener(new SauvegarderLogs());
+		
+		
+		try 
+		{
+			this.setIconImage(ImageIO.read(new File("image/pill.png")));
+		} 
+		catch (Exception e) 
+		{
+			System.err.println("Fichier introuvable (image/pill.png)");
+		}
+		
 		
 		this.panneauCommandeFile = new PanneauCommandeFile();
 		this.panneauCommandeTapis = new PanneauCommandeTapis();
@@ -298,6 +329,87 @@ public class Fenetre extends JFrame{
 			}
       	}
 	}
+	
+	class TogglePause extends MouseAdapter
+	{
+		JButton bouton;
+		public TogglePause(JButton bouton)
+		{
+			this.bouton = bouton;
+		}
+		public void mouseReleased(MouseEvent event)
+      	{
+			PEEM1000 peem1000 = PEEM1000.recupererInstance();
+			if(peem1000.enFonctionnement())
+			{
+				this.bouton.setText("Demarrer");
+				this.bouton.updateUI();
+				peem1000.stopper();
+			}
+			else
+			{
+				this.bouton.setText("Pause");
+				this.bouton.updateUI();
+				peem1000.demarrer();
+			}
+      	}
+	}
+	
+	//FIXME Penser à mettre à jour l'affichage de la file
+	class ViderCommandeTapis extends MouseAdapter
+	{
+		public void mouseReleased(MouseEvent event)
+      	{
+			PEEM1000 peem1000 = PEEM1000.recupererInstance();
+			peem1000.viderCommande();
+			peem1000.viderTapis();
+      	}
+	}
+	
+	class TickManuel extends MouseAdapter implements TapisRoulantObserver
+	{
+		private int valeurVitesse = -1;
+		public void mouseReleased(MouseEvent event)
+      	{
+			PEEM1000 peem1000 = PEEM1000.recupererInstance();
+			if( ! peem1000.enFonctionnement())
+			{
+				peem1000.ajouterObserver(this);
+				valeurVitesse = peem1000.recupererVitesse();
+				peem1000.modifierVitesse(10);
+				peem1000.demarrer(1);
+			}
+      	}
+
+		@Override
+		public void onWaitTick()
+		{
+			if(valeurVitesse > -1)
+			{
+				PEEM1000 peem1000 = PEEM1000.recupererInstance();
+				peem1000.modifierVitesse(valeurVitesse);
+				valeurVitesse = -1;
+			}
+		}
+
+		@Override
+		public void onCreateTas(Tas tas)
+		{
+		}
+
+		@Override
+		public void onDeleteTas(Tas tas)
+		{
+		}
+
+		@Override
+		public void onClearCarpet()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
 	public static void main( String arg[] )
      {
     	new Fenetre();

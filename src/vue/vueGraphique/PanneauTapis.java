@@ -58,18 +58,20 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 				//On récupére les code de medoc
 				String codeDroit, codeGauche;
 				codeDroit = magasin.lireCode(i*2);
+				codeDroit += " " + i*2;
 				codeGauche = magasin.lireCode((i*2) - 1);
+				codeGauche += " " + ((i*2) - 1);
 				//On calcule le x avec la marge
 				x = ((i - 1)*interCube*6) + marge;
 				y = marge;
 				//On peint
 				g.drawRect(x, marge, widthCube, heightCube);
 				//Ajoute le code a des coordonnée arbitrairement proportionelles
-				g.drawString(codeDroit, x + widthCube/2, y + heightCube/2);
+				g.drawString(codeDroit, x + widthCube/4, y + heightCube/2);
 				//On recalcule et on repeint l'autre ejecteur
 				y = 2*heightCube + marge;
 				g.drawRect(x, y, widthCube, heightCube);
-				g.drawString(codeGauche, x + widthCube/2, y + heightCube/2);
+				g.drawString(codeGauche, x + widthCube/4, y + heightCube/2);
 			}
 			
 			List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
@@ -116,5 +118,10 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 	public void onDeleteTas(Tas tas) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void onClearCarpet()
+	{
+		this.repaint();
 	}
 }

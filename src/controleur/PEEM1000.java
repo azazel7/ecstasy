@@ -116,12 +116,42 @@ public class PEEM1000
 		{
 			if( ! this.tapis.isEnFonctionnement())
 			{
+				this.tapis.setNombreRestantDeTick(TapisRoulant.BOUCLE_INDETERMINEE);
+				this.thread = new ThreadTapisRoulant(this.tapis);
+				this.thread.start();
+			}
+		}
+	}
+	public void demarrer(int nombreTickMax)
+	{
+		if(this.tapis != null)
+		{
+			if( ! this.tapis.isEnFonctionnement())
+			{
+				this.tapis.setNombreRestantDeTick(nombreTickMax);
 				this.thread = new ThreadTapisRoulant(this.tapis);
 				this.thread.start();
 			}
 		}
 	}
 	
+	public boolean enFonctionnement()
+	{
+		if(this.tapis != null)
+		{
+			return this.tapis.isEnFonctionnement();
+		}
+		return false;
+	}
+	
+	public void viderCommande()
+	{
+		this.tapis.getFileDeCommande().viderCommande();
+	}
+	public void viderTapis()
+	{
+		this.tapis.viderTapis();
+	}
 	/**
 	 * stoppe l'automate
 	 */
@@ -130,6 +160,10 @@ public class PEEM1000
 		this.tapis.setEnFonctionnement(false);
 	}
 	
+	public void modifierNombreRestantTick(int nombre)
+	{
+		this.tapis.setNombreRestantDeTick(nombre);
+	}
 	public void retirerCommande(int index)
 	{
 		FileDeCommande file = this.tapis.getFileDeCommande();
@@ -162,5 +196,10 @@ public class PEEM1000
 	public void retirerObserverFile(FileCommandeObserver obs)
 	{
 		this.tapis.getFileDeCommande().addObserver(obs);
+	}
+	
+	public int recupererVitesse()
+	{
+		return this.tapis.getCodeur().getValeurTick();
 	}
 }

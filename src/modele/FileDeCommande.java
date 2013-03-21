@@ -45,4 +45,9 @@ public class FileDeCommande extends FileCommandeObservable
 	{
 		return file;
 	}
+	public void viderCommande()
+	{	
+		this.file.clear();
+		this.notifyDeleteCommande();
+	}
 }

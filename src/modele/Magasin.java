@@ -4,7 +4,7 @@ import observation.MagasinObservable;
 
 public class Magasin extends MagasinObservable
 {
-	public static int MAX_STOCK = 50;
+	public static int MAX_STOCK = 20;
 	private static int NOMBRE_RAIL = 20;
 	private static Magasin magasin = null;
 	private RailMedicament stock[];
@@ -12,15 +12,14 @@ public class Magasin extends MagasinObservable
 	private Magasin()
 	{
 		this.stock = new RailMedicament[20];
-		char lettre[] = {'A'};
+		char lettre[] = {'A', 'B', 'C'};
+		char nom[] = {'A'};
 		//On remplis les stocks
 		for(int i = 0; i < NOMBRE_RAIL/2; i++)
 		{
-			lettre[0] = (char)('A' + i);
-			this.stock[2*i+1] = new RailMedicament(new String(lettre), 50);
-			lettre[0] = (char)('A' + i + NOMBRE_RAIL/2);
-			this.stock[2*i] = new RailMedicament(new String(lettre), 50);
-			
+			nom[0] = lettre[i%3];
+			this.stock[2*i+1] = new RailMedicament(new String(nom), Magasin.MAX_STOCK);
+			this.stock[2*i] = new RailMedicament(new String(nom), Magasin.MAX_STOCK);
 		}
 	}
 	/**
@@ -87,10 +86,10 @@ public class Magasin extends MagasinObservable
 		}
 		//on retire au stock
 		rail.setQuantite(rail.getQuantite() - retour);
-		this.notifyEject(retour, rail.getCode());
+		this.notifyEject(retour, rail.getCode(), position);
 		if(rail.getQuantite() == 0)
 		{
-			this.notifyOutOfStock(rail.getCode());
+			this.notifyOutOfStock(rail.getCode(), position);
 		}
 		return retour;
 	}
