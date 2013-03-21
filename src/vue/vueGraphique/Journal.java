@@ -90,15 +90,15 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 		this.ecrire("");
 	}
 	@Override
-	public void onEject(int nombre, String code)
+	public void onEject(int nombre, String code, int position)
 	{
-		this.ecrire("Ejection: " + code + " " + nombre);
+		this.ecrire("Ejection de " + nombre + " " + code + " à la position " + position);
 	}
 	
 	@Override
-	public void onOutOfStock(String code)
+	public void onOutOfStock(String code, int position)
 	{
-			this.ecrire("Le medicament " + code + " est en rupture de stock");	
+			this.ecrire("Le medicament " + code + " en " + position + " est en rupture de stock");	
 	}
 	
 	public void enregistrerLogs(String chemin)

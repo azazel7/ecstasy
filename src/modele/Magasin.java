@@ -18,9 +18,8 @@ public class Magasin extends MagasinObservable
 		for(int i = 0; i < NOMBRE_RAIL/2; i++)
 		{
 			nom[0] = lettre[i%3];
-			this.stock[2*i+1] = new RailMedicament(new String(nom), 50);
-			this.stock[2*i] = new RailMedicament(new String(nom), 50);
-			
+			this.stock[2*i+1] = new RailMedicament(new String(nom), Magasin.MAX_STOCK);
+			this.stock[2*i] = new RailMedicament(new String(nom), Magasin.MAX_STOCK);
 		}
 	}
 	/**
@@ -87,10 +86,10 @@ public class Magasin extends MagasinObservable
 		}
 		//on retire au stock
 		rail.setQuantite(rail.getQuantite() - retour);
-		this.notifyEject(retour, rail.getCode());
+		this.notifyEject(retour, rail.getCode(), position);
 		if(rail.getQuantite() == 0)
 		{
-			this.notifyOutOfStock(rail.getCode());
+			this.notifyOutOfStock(rail.getCode(), position);
 		}
 		return retour;
 	}

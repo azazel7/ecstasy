@@ -43,29 +43,14 @@ public class PanneauStock extends JPanel implements MagasinObserver
 	}
 
 	@Override
-	public void onEject(int nombre, String code)
+	public void onEject(int nombre, String code, int position)
 	{
-		for(PanneauEjecteur rail : this.listeEjecteur)
-		{
-			if(code.equals(rail.getCode()))
-			{
-				rail.setQuantite(rail.getQuantite() - nombre);
-				break;
-			}
-		}
+		this.listeEjecteur[position].setQuantite(this.listeEjecteur[position].getQuantite() - nombre);
 	}
 
 	@Override
-	public void onOutOfStock(String code)
+	public void onOutOfStock(String code, int position)
 	{
-		
-		for(PanneauEjecteur rail : this.listeEjecteur)
-		{
-			if(code.equals(rail.getCode()))
-			{
-				rail.alerteZeroPourcent();
-				break;
-			}
-		}
+		this.listeEjecteur[position].alerteZeroPourcent();
 	}
 }
