@@ -9,12 +9,13 @@ import observation.TapisRoulantObservable;
 
 public class TapisRoulant extends TapisRoulantObservable
 {
-	
+	public static int BOUCLE_INDETERMINEE = -1;
+	public static int BOUCLE_STOPPEE = -2;
 	private Codeur codeur;
 	private FileDeCommande fileDeCommande;
 	private List<Tas> tas;
 	private static final int NOMBRE_POSITION = 10;
-	private boolean enFonctionnement;
+	private int enFonctionnement;
 	private int numeroTasSuivant = 0;
 	
 	public TapisRoulant(FileDeCommande fileDeCommande)
@@ -22,7 +23,7 @@ public class TapisRoulant extends TapisRoulantObservable
 		this.fileDeCommande = fileDeCommande;
 		this.tas = new LinkedList<Tas>();
 		this.codeur = new Codeur(Codeur.VITESSE_CODEUR_DEFAUT);
-		this.enFonctionnement = false;
+		this.enFonctionnement = BOUCLE_STOPPEE;
 	}
 	
 	public void creerTas()
@@ -44,10 +45,9 @@ public class TapisRoulant extends TapisRoulantObservable
 		Iterator<Tas> iterator;
 		Tas tasCourant;
 		int positionLaPlusPetite;
-		this.enFonctionnement = true;
-		
-		while(this.enFonctionnement)
+		for(int i = 0; (this.enFonctionnement == BOUCLE_INDETERMINEE || i < this.enFonctionnement) && this.enFonctionnement != BOUCLE_STOPPEE; i++)
 		{
+			System.out.println("Narval des océans");
 			//On informe que l'on vas entrer dans un tick
 			this.notifyWaitTick();
 			//On attend que le tapis avance
@@ -74,6 +74,8 @@ public class TapisRoulant extends TapisRoulantObservable
 			}
 			nettoyerTas();
 		}
+		this.notifyWaitTick();
+		this.enFonctionnement = BOUCLE_STOPPEE;
 	}
 
 	public void nettoyerTas()
@@ -115,13 +117,28 @@ public class TapisRoulant extends TapisRoulantObservable
 	}
 
 	public boolean isEnFonctionnement() {
-		return enFonctionnement;
+		if(this.enFonctionnement == BOUCLE_STOPPEE)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	public void setEnFonctionnement(boolean enFonctionnement) {
-		this.enFonctionnement = enFonctionnement;
+		if(enFonctionnement == true)
+		{
+			this.enFonctionnement = BOUCLE_INDETERMINEE;
+		}
+		else
+		{
+			this.enFonctionnement = BOUCLE_STOPPEE;
+		}
 	}
 
+	public void setNombreRestantDeTick(int i)
+	{
+		this.enFonctionnement = i;
+	}
 	public Codeur getCodeur() {
 		return codeur;
 	}

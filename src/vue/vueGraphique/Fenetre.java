@@ -23,7 +23,10 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import observation.TapisRoulantObserver;
+
 import modele.Codeur;
+import modele.Tas;
 
 
 import controleur.PEEM1000;
@@ -104,6 +107,7 @@ public class Fenetre extends JFrame{
 		
 		boutonTogglePause.addMouseListener(new TogglePause(boutonTogglePause));
 		boutonViderTapis.addMouseListener(new ViderCommandeTapis());
+		boutonTickManuel.addMouseListener(new TickManuel());
 		panneauDemarrer.setLayout(new GridLayout(1, 2));
 		panneauDemarrer.setBorder(BorderFactory.createTitledBorder("Controle tapis"));
 		panneauDemarrer.add(boutonTogglePause);
@@ -336,6 +340,7 @@ public class Fenetre extends JFrame{
       	}
 	}
 	
+	//FIXME Penser à mettre à jour l'affichage de la file
 	class ViderCommandeTapis extends MouseAdapter
 	{
 		public void mouseReleased(MouseEvent event)
@@ -344,6 +349,43 @@ public class Fenetre extends JFrame{
 			peem1000.viderCommande();
 			peem1000.viderTapis();
       	}
+	}
+	
+	class TickManuel extends MouseAdapter implements TapisRoulantObserver
+	{
+		private int valeurVitesse = -1;
+		public void mouseReleased(MouseEvent event)
+      	{
+			PEEM1000 peem1000 = PEEM1000.recupererInstance();
+			if( ! peem1000.enFonctionnement())
+			{
+				peem1000.ajouterObserver(this);
+				valeurVitesse = peem1000.recupererVitesse();
+				peem1000.modifierVitesse(0);
+				peem1000.demarrer(1);
+			}
+      	}
+
+		@Override
+		public void onWaitTick()
+		{
+			if(valeurVitesse > -1)
+			{
+				PEEM1000 peem1000 = PEEM1000.recupererInstance();
+				peem1000.modifierVitesse(valeurVitesse);
+				valeurVitesse = -1;
+			}
+		}
+
+		@Override
+		public void onCreateTas(Tas tas)
+		{
+		}
+
+		@Override
+		public void onDeleteTas(Tas tas)
+		{
+		}
 	}
 	
 	public static void main( String arg[] )
