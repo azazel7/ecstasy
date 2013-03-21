@@ -53,28 +53,35 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 		Iterator<Tas> iteratorTapis = peem1000.getListeCommandeSurTapis().iterator();
 		Iterator<Map<String, Integer>> iteratorFile = peem1000.getListeCommande().iterator();
 		this.ecrire("");
-		this.ecrire("Attente d'un tick");
-		this.ecrire("Commande dans la file:");
-		while(iteratorFile.hasNext())
+		this.ecrire("*****Attente d'un tick*****");
+		if(iteratorFile.hasNext())
 		{
-			this.ecrire(AnalyseFichier.ecrireCommande(iteratorFile.next()));
+			this.ecrire("====Commande dans la file====");
+			int i = 0;
+			while(iteratorFile.hasNext())
+			{
+				this.ecrire("[" + i + "] " + AnalyseFichier.ecrireCommande(iteratorFile.next()));
+			}
 		}
-		this.ecrire("Commande sur le tapis:");
-		while(iteratorTapis.hasNext())
+		else
 		{
-			courant = iteratorTapis.next();
-			afficherTas(courant);
+			this.ecrire("====> Pas de commande en attente");
 		}
 		
-		RailMedicament[] stock = peem1000.getStock();
-		for(int i = 0; i < stock.length; i++)
+		if(iteratorTapis.hasNext())
 		{
-			if(i%3 == 0 && i != 0)
+			this.ecrire("####Commande sur le tapis####");
+			while(iteratorTapis.hasNext())
 			{
-				this.ecrire("");
+				courant = iteratorTapis.next();
+				afficherTas(courant);
 			}
-			this.ecrireSansRetour(stock[i].getCode() + " " + stock[i].getQuantite() + "//");
 		}
+		else
+		{
+			this.ecrire("====> Pas de commande sur le tapis");
+		}
+		
 		this.ecrire("");
 	}
 	

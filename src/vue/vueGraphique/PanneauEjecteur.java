@@ -9,7 +9,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import controleur.PEEM1000;
 
 import modele.Magasin;
 
@@ -22,16 +25,19 @@ public class PanneauEjecteur extends JPanel
 	private static final long serialVersionUID = 1L;
 	private String code;
 	private int quantite;
+	private int position;
 	JButton labelCode;
 	JLabel labelQuantitee;
 	public PanneauEjecteur(String code, int quantite, int position)
 	{
 		this.code = code;
 		this.quantite = quantite;
+		this.position = position;
 		JButton boutonRecharger = new JButton(" + "), boutonDecharger = new JButton(" - ");
 		boutonRecharger.setBorder(BorderFactory.createEmptyBorder());
 		boutonDecharger.setBorder(BorderFactory.createEmptyBorder());
 		this.labelCode = new JButton(this.code + "(" + position + ")");
+		this.labelCode.addMouseListener(new ChangerMedicament());
 		this.labelQuantitee = new JLabel("Qte " + this.quantite);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(""));
@@ -144,10 +150,21 @@ public class PanneauEjecteur extends JPanel
 		public void mouseReleased(MouseEvent arg0)
 		{
 			//tester clic droit
-			//modifier le code
-			//modifier affichage
-			//notifier l'affichage du tapis
-			//mettre à jout le graphique
+			if(arg0.getButton() == 3)
+			{
+				//modifier le code
+				String nouveauCode = JOptionPane.showInputDialog(null, "Nouveau code", "Entrez le nouveau code", JOptionPane.QUESTION_MESSAGE);
+				if(nouveauCode != null)
+				{
+					Magasin.recupererInstance().getStock()[position - 1].setCode(nouveauCode);
+					code = nouveauCode;
+					labelCode.setText(code + "(" + position + ")");
+					labelCode.updateUI();
+					//TODO notifier l'affichage du tapis
+				}
+			}
+			
+			
 		}
 	}
 	
