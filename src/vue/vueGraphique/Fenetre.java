@@ -5,8 +5,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -137,6 +140,17 @@ public class Fenetre extends JFrame{
 		ajouterFichierCommande.addMouseListener(new AjouterFichierCommande());
 		quitter.addMouseListener(new QuitterApplication());
 		sauvegarderLog.addMouseListener(new SauvegarderLogs());
+		
+		
+		try 
+		{
+			this.setIconImage(ImageIO.read(new File("image/pill.png")));
+		} 
+		catch (Exception e) 
+		{
+			System.err.println("Fichier introuvable (image/pill.png)");
+		}
+		
 		
 		this.panneauCommandeFile = new PanneauCommandeFile();
 		this.panneauCommandeTapis = new PanneauCommandeTapis();

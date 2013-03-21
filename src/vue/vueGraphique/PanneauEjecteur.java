@@ -1,5 +1,6 @@
 package vue.vueGraphique;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -21,20 +22,23 @@ public class PanneauEjecteur extends JPanel
 	private static final long serialVersionUID = 1L;
 	private String code;
 	private int quantite;
-	JLabel labelCode, labelQuantitee;
+	JButton labelCode;
+	JLabel labelQuantitee;
 	public PanneauEjecteur(String code, int quantite, int position)
 	{
 		this.code = code;
 		this.quantite = quantite;
-		JButton boutonRecharger = new JButton("+"), boutonDecharger = new JButton("-");
-		this.labelCode = new JLabel(this.code + "(" + position + ")");
-		this.labelQuantitee = new JLabel("" + this.quantite);
-		this.setLayout(new GridLayout(2,2));
+		JButton boutonRecharger = new JButton(" + "), boutonDecharger = new JButton(" - ");
+		boutonRecharger.setBorder(BorderFactory.createEmptyBorder());
+		boutonDecharger.setBorder(BorderFactory.createEmptyBorder());
+		this.labelCode = new JButton(this.code + "(" + position + ")");
+		this.labelQuantitee = new JLabel("Qte " + this.quantite);
+		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(""));
-		this.add(boutonRecharger);
-		this.add(this.labelCode);
-		this.add(boutonDecharger);
-		this.add(this.labelQuantitee);
+		this.add(boutonRecharger, BorderLayout.LINE_END);
+		this.add(this.labelCode, BorderLayout.PAGE_START);
+		this.add(boutonDecharger, BorderLayout.LINE_START);
+		this.add(this.labelQuantitee, BorderLayout.PAGE_END);
 		boutonDecharger.addMouseListener(new DechargerStock());
 		boutonRecharger.addMouseListener(new RechargerStock());
 		
@@ -71,7 +75,7 @@ public class PanneauEjecteur extends JPanel
 				if(stock >= 0)
 				{
 					quantite--;
-					labelQuantitee.setText("" + quantite);
+					labelQuantitee.setText("Qte " + quantite);
 					labelQuantitee.updateUI();
 				}
 			}
