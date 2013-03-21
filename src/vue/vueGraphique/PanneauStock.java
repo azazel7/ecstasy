@@ -24,7 +24,7 @@ public class PanneauStock extends JPanel implements MagasinObserver
 		this.listeEjecteur = new PanneauEjecteur[tabRail.length];
 		for(int i = 0; i < tabRail.length; i++)
 		{
-			this.listeEjecteur[i] = new PanneauEjecteur(tabRail[i].getCode(), tabRail[i].getQuantite());
+			this.listeEjecteur[i] = new PanneauEjecteur(tabRail[i].getCode(), tabRail[i].getQuantite(), i+1);
 		}
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

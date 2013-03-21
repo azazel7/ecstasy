@@ -22,12 +22,12 @@ public class PanneauEjecteur extends JPanel
 	private String code;
 	private int quantite;
 	JLabel labelCode, labelQuantitee;
-	public PanneauEjecteur(String code, int quantite)
+	public PanneauEjecteur(String code, int quantite, int position)
 	{
 		this.code = code;
 		this.quantite = quantite;
 		JButton boutonRecharger = new JButton("+"), boutonDecharger = new JButton("-");
-		this.labelCode = new JLabel(this.code);
+		this.labelCode = new JLabel(this.code + "(" + position + ")");
 		this.labelQuantitee = new JLabel("" + this.quantite);
 		this.setLayout(new GridLayout(2,2));
 		this.setBorder(BorderFactory.createTitledBorder(""));
