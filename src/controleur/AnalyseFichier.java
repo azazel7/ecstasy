@@ -25,11 +25,12 @@ public class AnalyseFichier
 	public static Map<String, Integer> creerCommande(String commande)
 	{
 		Map<String, Integer> retour = new HashMap<String, Integer>();
-		String regex = "^([1-9][0-9]*[A-Z]*,)*[1-9][0-9]*[A-Z]*,?$", code;
+		String regex = "^([1-9][0-9]*[A-Z]*,)*[1-9][0-9]*[A-Za-z]*,?$", code;
 		String[] listeMedoc;
-		Pattern pattern = Pattern.compile("^([1-9][0-9]*)([A-Z]{1,})$");
+		Pattern pattern = Pattern.compile("^([1-9][0-9]*)([A-Za-z]{1,})$");
 		Matcher matcher;
 		int nombre;
+		commande = trimPerso(commande);
 		if(Pattern.matches(regex, commande) == true)
 		{
 			listeMedoc = commande.split(",");
@@ -108,6 +109,21 @@ public class AnalyseFichier
 		}
 		return retour;
 	}
+	
+	public static String trimPerso(String chaine)
+	{
+		byte[] tableau = chaine.getBytes();
+		String retour = new String();
+		for(int i = 0; i < tableau.length; i++)
+		{
+			if(tableau[i] > 32)
+			{
+				retour += (char)tableau[i];
+			}
+		}
+		return retour;
+	}
+	
 	/**
 	 * Ce sont des tests
 	 * @param args
