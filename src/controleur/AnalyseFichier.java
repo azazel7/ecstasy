@@ -25,9 +25,9 @@ public class AnalyseFichier
 	public static Map<String, Integer> creerCommande(String commande)
 	{
 		Map<String, Integer> retour = new HashMap<String, Integer>();
-		String regex = "^([1-9]*[A-Z]*,)*[1-9]*[A-Z]*,?$", code;
+		String regex = "^([1-9][0-9]*[A-Z]*,)*[1-9][0-9]*[A-Z]*,?$", code;
 		String[] listeMedoc;
-		Pattern pattern = Pattern.compile("^([1-9]{1,})([A-Z]{1,})$");
+		Pattern pattern = Pattern.compile("^([1-9][0-9]*)([A-Z]{1,})$");
 		Matcher matcher;
 		int nombre;
 		if(Pattern.matches(regex, commande) == true)
