@@ -34,9 +34,9 @@ public class Tas
 		for(int i = 0; i < 2; i++)
 		{
 			code = this.magasin.lireCode(2*this.positionCourante - i);
-			if(this.listeMedoc.containsKey(code))
+			if(this.listeMedocRestante.containsKey(code))
 			{
-				nombre = this.listeMedoc.get(code);
+				nombre = this.listeMedocRestante.get(code);
 				recu = this.demanderEjection(2*this.positionCourante - i, nombre);
 				this.listeMedocRestante.remove(code);
 				if(recu < nombre)
@@ -49,13 +49,9 @@ public class Tas
 	
 	private int demanderEjection(int position, int nombreTotal)
 	{
-		int recus = 1, nombre = 0;
-		while(nombre < nombreTotal && recus > 0)
-		{
-			recus = this.magasin.ejecterMedoc(position, nombreTotal - nombre);
-			nombre += recus;
-		}
-		return nombre;
+		int recus = 0;
+		recus = this.magasin.ejecterMedoc(position, nombreTotal);
+		return recus;
 	}
 	public int lirePositionCourante()
 	{

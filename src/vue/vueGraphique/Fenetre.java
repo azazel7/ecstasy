@@ -104,6 +104,7 @@ public class Fenetre extends JFrame{
 		panneauControleSimple.setBorder(BorderFactory.createTitledBorder("Contrôle simple"));
 		this.principal.setLayout(new GridLayout(3, 2));
 		
+		
 		//On remplis la barre de menus
 		fichierMenu.add(demarrer);
 		fichierMenu.add(stopper);
