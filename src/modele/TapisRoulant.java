@@ -47,7 +47,6 @@ public class TapisRoulant extends TapisRoulantObservable
 		int positionLaPlusPetite;
 		for(int i = 0; (this.enFonctionnement == BOUCLE_INDETERMINEE || i < this.enFonctionnement) && this.enFonctionnement != BOUCLE_STOPPEE; i++)
 		{
-			System.out.println("Narval des océans");
 			//On informe que l'on vas entrer dans un tick
 			this.notifyWaitTick();
 			//On attend que le tapis avance
@@ -74,8 +73,8 @@ public class TapisRoulant extends TapisRoulantObservable
 			}
 			nettoyerTas();
 		}
-		this.notifyWaitTick();
 		this.enFonctionnement = BOUCLE_STOPPEE;
+		this.notifyWaitTick();
 	}
 
 	public void nettoyerTas()
@@ -92,13 +91,11 @@ public class TapisRoulant extends TapisRoulantObservable
 			}
 		}
 	}
-	public void viderTapisEtCommande()
+	public void viderTapis()
 	{
-		while(this.fileDeCommande.lireNombre() > 0)
-		{
-			this.fileDeCommande.lireCommandeSuivante();
-		}
 		this.tas.clear();
+		this.notifyClearCarpet();
+		
 	}
 	public FileDeCommande getFileDeCommande() {
 		return fileDeCommande;

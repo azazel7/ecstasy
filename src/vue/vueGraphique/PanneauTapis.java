@@ -112,4 +112,9 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void onClearCarpet()
+	{
+		this.repaint();
+	}
 }

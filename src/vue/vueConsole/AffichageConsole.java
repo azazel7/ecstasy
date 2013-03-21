@@ -84,5 +84,11 @@ public class AffichageConsole implements TapisRoulantObserver
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void onClearCarpet()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 }

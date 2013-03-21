@@ -361,7 +361,7 @@ public class Fenetre extends JFrame{
 			{
 				peem1000.ajouterObserver(this);
 				valeurVitesse = peem1000.recupererVitesse();
-				peem1000.modifierVitesse(0);
+				peem1000.modifierVitesse(10);
 				peem1000.demarrer(1);
 			}
       	}
@@ -385,6 +385,13 @@ public class Fenetre extends JFrame{
 		@Override
 		public void onDeleteTas(Tas tas)
 		{
+		}
+
+		@Override
+		public void onClearCarpet()
+		{
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	

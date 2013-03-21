@@ -146,11 +146,11 @@ public class PEEM1000
 	
 	public void viderCommande()
 	{
-		this.tapis.getFileDeCommande().getFile().clear();
+		this.tapis.getFileDeCommande().viderCommande();
 	}
 	public void viderTapis()
 	{
-		this.tapis.getTas().clear();
+		this.tapis.viderTapis();
 	}
 	/**
 	 * stoppe l'automate

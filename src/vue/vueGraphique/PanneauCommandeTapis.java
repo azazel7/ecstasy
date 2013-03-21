@@ -208,5 +208,10 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void onClearCarpet()
+	{
+		this.updateArbre();
+	}
 
 }

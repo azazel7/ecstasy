@@ -116,6 +116,12 @@ public class Journal implements TapisRoulantObserver, MagasinObserver
 		}
 	}
 
+	@Override
+	public void onClearCarpet()
+	{
+		this.ecrire("*****Le tapis à était vidé****");
+	}
+
 	
 
 }

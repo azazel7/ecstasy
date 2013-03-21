@@ -11,4 +11,6 @@ public class MagasinObservable extends BetterObservable
 	{
 		callWithObservers("onOutOfStock", code, position);
 	}
+	
+
 }
