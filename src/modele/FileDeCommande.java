@@ -45,4 +45,11 @@ public class FileDeCommande extends FileCommandeObservable
 	{
 		return file;
 	}
+	public void viderCommande()
+	{
+		for(int i = 0; i < this.file.size(); i++)
+		{
+		}
+		this.file.clear();
+	}
 }

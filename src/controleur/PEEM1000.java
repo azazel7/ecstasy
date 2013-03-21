@@ -122,6 +122,23 @@ public class PEEM1000
 		}
 	}
 	
+	public boolean enFonctionnement()
+	{
+		if(this.tapis != null)
+		{
+			return this.tapis.isEnFonctionnement();
+		}
+		return false;
+	}
+	
+	public void viderCommande()
+	{
+		this.tapis.getFileDeCommande().getFile().clear();
+	}
+	public void viderTapis()
+	{
+		this.tapis.getTas().clear();
+	}
 	/**
 	 * stoppe l'automate
 	 */

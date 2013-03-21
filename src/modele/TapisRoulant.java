@@ -90,6 +90,14 @@ public class TapisRoulant extends TapisRoulantObservable
 			}
 		}
 	}
+	public void viderTapisEtCommande()
+	{
+		while(this.fileDeCommande.lireNombre() > 0)
+		{
+			this.fileDeCommande.lireCommandeSuivante();
+		}
+		this.tas.clear();
+	}
 	public FileDeCommande getFileDeCommande() {
 		return fileDeCommande;
 	}
