@@ -1,5 +1,8 @@
 package vue.vueGraphique;
 
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -111,11 +114,16 @@ public class Fenetre extends JFrame{
 		boutonTogglePause.addMouseListener(new TogglePause(boutonTogglePause));
 		boutonViderTapis.addMouseListener(new ViderCommandeTapis());
 		boutonTickManuel.addMouseListener(new TickManuel());
-		panneauDemarrer.setLayout(new GridLayout(1, 2));
+		panneauDemarrer.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
 		panneauDemarrer.setBorder(BorderFactory.createTitledBorder("Controle tapis"));
-		panneauDemarrer.add(boutonTogglePause);
-		panneauDemarrer.add(boutonTickManuel);
-		panneauDemarrer.add(boutonViderTapis);
+		panneauDemarrer.add(boutonTogglePause, c);
+		c.gridx ++;
+		panneauDemarrer.add(boutonTickManuel, c);
+		c.gridx ++;
+		panneauDemarrer.add(boutonViderTapis, c);
 		
 		panneauControleSimple.add(panneauVitesse);
 		panneauControleSimple.add(panneauAjoutCommande);

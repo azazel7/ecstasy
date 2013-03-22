@@ -1,6 +1,7 @@
 package vue.vueGraphique;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.util.Iterator;
@@ -38,6 +39,7 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 	//Peut être optimisé en ne peignant que la zone des tas car il n'y a qu'elle qui change
 	public void paintComponent(Graphics g)
 	{
+		
 		g.setColor(new Color(238, 238, 238));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		g.setColor(Color.black);
@@ -51,6 +53,8 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 		int interCube = reelWidth/59;
 		int widthCube = interCube*5;
 		int x, y;
+		Font font = new Font("Dialog", Font.PLAIN, widthCube/3);
+	    g.setFont(font);
 		Magasin magasin = Magasin.recupererInstance();
 		//getmagasin
 			for(int i = 1; i <= 10; i++)
@@ -67,11 +71,11 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 				//On peint
 				g.drawRect(x, marge, widthCube, heightCube);
 				//Ajoute le code a des coordonnée arbitrairement proportionelles
-				g.drawString(codeDroit, x + widthCube/4, y + heightCube/2);
+				g.drawString(codeDroit, x + widthCube/5, y + heightCube/2);
 				//On recalcule et on repeint l'autre ejecteur
 				y = 2*heightCube + marge;
 				g.drawRect(x, y, widthCube, heightCube);
-				g.drawString(codeGauche, x + widthCube/4, y + heightCube/2);
+				g.drawString(codeGauche, x + widthCube/5, y + heightCube/2);
 			}
 			
 			List<Tas> listeTas = this.peem1000.getListeCommandeSurTapis();
