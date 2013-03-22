@@ -23,28 +23,33 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 	private static final long serialVersionUID = 1L;
 	private String journal = new String();
 	private PEEM1000 peem1000 = PEEM1000.recupererInstance();
-	
+	ScrollPane scrollPane = new ScrollPane();
 	private JTextArea text;
 	
 	public Journal()
 	{
 		this.text = new JTextArea();
-		ScrollPane scrollPane = new ScrollPane();
+		
 		scrollPane.add(this.text);
+		scrollPane.setScrollPosition(this.text.getRows(), 0);
 		this.add(scrollPane);
 		this.setLayout(new GridLayout(1,1));
 		this.setBorder(BorderFactory.createTitledBorder("Log"));
+		
 	}
 	public void ecrire(String chaine)
 	{
 		this.journal += chaine + "\n";
-		this.text.setText(this.journal);
+		this.text.setText(this.journal);System.out.println();
+		this.scrollPane.setScrollPosition(0, this.text.getText().lastIndexOf('\n'));
+		
 	}
 	
 	public void ecrireSansRetour(String chaine)
 	{
 		this.journal += chaine;
 		this.text.setText(this.journal);
+		//this.scrollPane.setScrollPosition(0, this.text.getText().lastIndexOf('\n'));
 	}
 	@Override
 	public void onWaitTick()
