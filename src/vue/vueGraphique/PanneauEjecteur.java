@@ -112,7 +112,7 @@ public class PanneauEjecteur extends JPanel
 	
 	public void calme()
 	{
-		this.labelCode.setForeground(Color.black);
+		this.labelCode.setForeground(Color.DARK_GRAY);
 		this.labelCode.updateUI();
 	}
 	
