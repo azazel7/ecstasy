@@ -2,6 +2,7 @@ package vue.vueGraphique;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,7 +27,7 @@ public class PanneauEjecteur extends JPanel
 	private String code;
 	private int quantite;
 	private int position;
-	JButton labelCode;
+	JLabel labelCode;
 	JLabel labelQuantitee;
 	public PanneauEjecteur(String code, int quantite, int position)
 	{
@@ -36,7 +37,7 @@ public class PanneauEjecteur extends JPanel
 		JButton boutonRecharger = new JButton(" + "), boutonDecharger = new JButton(" - ");
 		boutonRecharger.setBorder(BorderFactory.createEmptyBorder());
 		boutonDecharger.setBorder(BorderFactory.createEmptyBorder());
-		this.labelCode = new JButton(this.code + "(" + position + ")");
+		this.labelCode = new JLabel(this.code + "(" + position + ")");
 		this.labelCode.addMouseListener(new ChangerMedicament());
 		this.labelQuantitee = new JLabel("Qte " + this.quantite);
 		this.setLayout(new BorderLayout());
@@ -47,7 +48,6 @@ public class PanneauEjecteur extends JPanel
 		this.add(this.labelQuantitee, BorderLayout.PAGE_END);
 		boutonDecharger.addMouseListener(new DechargerStock());
 		boutonRecharger.addMouseListener(new RechargerStock());
-		
 	}
 	
 	public class RechargerStock extends MouseAdapter

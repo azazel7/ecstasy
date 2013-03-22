@@ -2,6 +2,7 @@ package vue.vueGraphique;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -26,7 +27,7 @@ public class PanneauStock extends JPanel implements MagasinObserver
 		{
 			this.listeEjecteur[i] = new PanneauEjecteur(tabRail[i].getCode(), tabRail[i].getQuantite(), i+1);
 		}
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new GridLayout(this.listeEjecteur.length/4, 0));
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridy = 0;
 		c.gridx = 0;
