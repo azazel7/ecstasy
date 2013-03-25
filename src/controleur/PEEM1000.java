@@ -157,7 +157,8 @@ public class PEEM1000
 	 */
 	public void stopper()
 	{
-		this.tapis.setEnFonctionnement(false);
+		//this.tapis.setEnFonctionnement(false);
+		this.tapis.getCodeur().setValeurTick(-1);
 	}
 	
 	public void modifierNombreRestantTick(int nombre)
