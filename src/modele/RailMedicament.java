@@ -11,7 +11,8 @@ public class RailMedicament
 		this.quantite = quantite;
 	}
 
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
 	}
 
@@ -23,8 +24,12 @@ public class RailMedicament
 		return quantite;
 	}
 
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
+	public void setQuantite(int quantite)
+	{
+		if(quantite >= 0 && quantite <= Magasin.MAX_STOCK)
+		{
+			this.quantite = quantite;
+		}
 	}
 	
 	

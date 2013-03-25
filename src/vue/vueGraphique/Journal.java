@@ -35,7 +35,7 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 		this.add(scrollPane);
 		this.setLayout(new GridLayout(1,1));
 		this.setBorder(BorderFactory.createTitledBorder("Log"));
-		
+		this.ecrire("");
 	}
 	public void ecrire(String chaine)
 	{
@@ -49,7 +49,6 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 	{
 		this.journal += chaine;
 		this.text.setText(this.journal);
-		//this.scrollPane.setScrollPosition(0, this.text.getText().lastIndexOf('\n'));
 	}
 	@Override
 	public void onWaitTick()
@@ -66,6 +65,7 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 			while(iteratorFile.hasNext())
 			{
 				this.ecrire("[" + i + "] " + AnalyseFichier.ecrireCommande(iteratorFile.next()));
+				i++;
 			}
 		}
 		else
