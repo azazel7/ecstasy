@@ -50,7 +50,7 @@ public class TapisRoulant extends TapisRoulantObservable
 		{
 			//On informe que l'on vas entrer dans un tick
 			this.notifyWaitTick();
-			//On attend que le tapis avance
+			//On at tend que le tapis avance
 			this.codeur.attendreTick();
 			//On met la la plus petite position trés haut
 			positionLaPlusPetite = 255;
