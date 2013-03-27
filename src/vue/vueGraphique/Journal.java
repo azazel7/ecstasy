@@ -25,7 +25,7 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 	private PEEM1000 peem1000 = PEEM1000.recupererInstance();
 	ScrollPane scrollPane = new ScrollPane();
 	private JTextArea text;
-	
+	private int sauterTick = 0;
 	public Journal()
 	{
 		this.text = new JTextArea();
@@ -35,7 +35,7 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 		this.add(scrollPane);
 		this.setLayout(new GridLayout(1,1));
 		this.setBorder(BorderFactory.createTitledBorder("Log"));
-		
+		this.ecrire("");
 	}
 	public void ecrire(String chaine)
 	{
@@ -49,11 +49,15 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 	{
 		this.journal += chaine;
 		this.text.setText(this.journal);
-		//this.scrollPane.setScrollPosition(0, this.text.getText().lastIndexOf('\n'));
 	}
 	@Override
 	public void onWaitTick()
 	{
+		if(this.sauterTick > 0)
+		{
+			this.sauterTick--;
+			return;
+		}
 		Tas courant;
 		Iterator<Tas> iteratorTapis = peem1000.getListeCommandeSurTapis().iterator();
 		Iterator<Map<String, Integer>> iteratorFile = peem1000.getListeCommande().iterator();
@@ -66,6 +70,7 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 			while(iteratorFile.hasNext())
 			{
 				this.ecrire("[" + i + "] " + AnalyseFichier.ecrireCommande(iteratorFile.next()));
+				i++;
 			}
 		}
 		else
@@ -152,6 +157,12 @@ public class Journal extends JPanel implements TapisRoulantObserver, MagasinObse
 	public void onClearCarpet()
 	{
 		this.ecrire("*****Le tapis à était vidé****");
+	}
+	@Override
+	public void onEndGererCommande()
+	{
+		this.onWaitTick();
+		this.sauterTick++;
 	}
 
 	

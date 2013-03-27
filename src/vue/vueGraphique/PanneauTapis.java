@@ -123,4 +123,9 @@ public class PanneauTapis extends JPanel implements TapisRoulantObserver
 	{
 		this.repaint();
 	}
+	@Override
+	public void onEndGererCommande()
+	{
+		this.repaint();
+	}
 }

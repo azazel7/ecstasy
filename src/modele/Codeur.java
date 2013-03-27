@@ -40,5 +40,12 @@ public class Codeur
 		}
 	}
 	
+	public void unpause()
+	{
+			synchronized (this)
+			{
+				this.notify();
+			}
+	}
 	
 }

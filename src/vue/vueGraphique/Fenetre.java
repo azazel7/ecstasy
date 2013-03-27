@@ -404,6 +404,11 @@ public class Fenetre extends JFrame{
 
 		@Override
 		public void onClearCarpet()
+		{			
+		}
+
+		@Override
+		public void onEndGererCommande()
 		{
 			// TODO Auto-generated method stub
 			

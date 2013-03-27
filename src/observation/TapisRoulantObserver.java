@@ -8,4 +8,5 @@ public interface TapisRoulantObserver extends IObserver
 	void onCreateTas(Tas tas);
 	void onDeleteTas(Tas tas);
 	void onClearCarpet();
+	void onEndGererCommande();
 }
