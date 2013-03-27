@@ -16,7 +16,6 @@ import modele.Tas;
 import controleur.PEEM1000;
 
 import observation.TapisRoulantObserver;
-import sun.org.mozilla.javascript.ast.WithStatement;
 
 public class PanneauTapis extends JPanel implements TapisRoulantObserver
 {
