@@ -213,5 +213,10 @@ public class PanneauCommandeTapis extends JPanel implements TapisRoulantObserver
 	{
 		this.updateArbre();
 	}
+	@Override
+	public void onEndGererCommande()
+	{
+		this.updateArbre();
+	}
 
 }

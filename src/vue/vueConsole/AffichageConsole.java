@@ -90,5 +90,11 @@ public class AffichageConsole implements TapisRoulantObserver
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void onEndGererCommande()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 }

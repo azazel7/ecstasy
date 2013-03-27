@@ -14,6 +14,11 @@ public class TapisRoulantObservable extends BetterObservable
 		callWithObservers("onCreateTas", tas);
 	}
 	
+	public void notifyEndGererCommande()
+	{
+		callWithObservers("onEndGererCommande");
+	}
+	
 	public void notifyDeleteTas(Tas tas)
 	{
 		callWithObservers("onDeleteTas", tas);

@@ -48,34 +48,44 @@ public class TapisRoulant extends TapisRoulantObservable
 		int positionLaPlusPetite;
 		for(int i = 0; (this.enFonctionnement == BOUCLE_INDETERMINEE || i < this.enFonctionnement) && this.enFonctionnement != BOUCLE_STOPPEE; i++)
 		{
-			//On informe que l'on vas entrer dans un tick
+			// On informe que l'on vas entrer dans un tick
 			this.notifyWaitTick();
-			//On at tend que le tapis avance
+			// On at tend que le tapis avance
 			this.codeur.attendreTick();
-			//On met la la plus petite position trés haut
-			positionLaPlusPetite = 255;
-			iterator = this.tas.iterator();
-			//Pour chaque tas
-			while(iterator.hasNext())
+			if (this.enFonctionnement != BOUCLE_STOPPEE)
 			{
-				tasCourant = iterator.next();
-				//On met à jour la position
-				tasCourant.majPosition();
-				//On met à jour la position la plus petite
-				if(tasCourant.lirePositionCourante() < positionLaPlusPetite)
+				// On met la la plus petite position trés haut
+				positionLaPlusPetite = 255;
+				iterator = this.tas.iterator();
+				// Pour chaque tas
+				while (iterator.hasNext())
 				{
-					positionLaPlusPetite = tasCourant.lirePositionCourante();
+					tasCourant = iterator.next();
+					// On met à jour la position
+					tasCourant.majPosition();
+					// On met à jour la position la plus petite
+					if (tasCourant.lirePositionCourante() < positionLaPlusPetite)
+					{
+						positionLaPlusPetite = tasCourant
+								.lirePositionCourante();
+					}
 				}
+				// Si la position la plus petite est suffisament loin, on créer
+				// un nouveau tas
+				if (positionLaPlusPetite > 3
+						&& this.fileDeCommande.lireNombre() > 0)
+				{
+					creerTas();
+				}
+				nettoyerTas();
 			}
-			//Si la position la plus petite est suffisament loin, on créer un nouveau tas
-			if(positionLaPlusPetite > 3 && this.fileDeCommande.lireNombre() > 0)
+			else
 			{
-				creerTas();
+				return;
 			}
-			nettoyerTas();
 		}
 		this.enFonctionnement = BOUCLE_STOPPEE;
-		this.notifyWaitTick();
+		this.notifyEndGererCommande();
 	}
 
 	public void nettoyerTas()

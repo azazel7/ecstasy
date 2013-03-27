@@ -19,17 +19,7 @@ public class Codeur
 	{
 		try
 		{
-			synchronized (this)
-			{
-				if(this.valeurTick >= 0)
-				{
-					this.wait(this.valeurTick);
-				}
-				if(this.valeurTick < 0)
-				{
-					this.wait();
-				}
-			}
+			Thread.sleep(this.valeurTick);
 		}
 		catch (InterruptedException e)
 		{
